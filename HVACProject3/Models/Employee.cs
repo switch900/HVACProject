@@ -1,7 +1,10 @@
-﻿namespace HVACProject3.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace HVACProject3.Models
 {
     public abstract class Employee
     {
+        [Key]
         public long EmployeeId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

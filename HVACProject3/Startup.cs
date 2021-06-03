@@ -20,10 +20,15 @@ namespace HVACProject3
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<HVACEquipmentContext>(opt =>
-                                               opt.UseInMemoryDatabase("HVACEquipment"));
+            services.AddDbContext<HVACCompanyContext>(options =>
+                                               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
-            
+
+            services.AddCors(o => o.AddPolicy("HVACEquipmentPolicy", builder => {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,6 +42,8 @@ namespace HVACProject3
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 

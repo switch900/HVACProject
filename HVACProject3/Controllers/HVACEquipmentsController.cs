@@ -4,16 +4,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HVACProject3.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace HVACProject3.Controllers
 {
     [Route("api/HVACEquipments")]
+    [EnableCors("HVACEquipmentPolicy")]
     [ApiController]
     public class HVACEquipmentsController : ControllerBase
     {
-        private readonly HVACEquipmentContext _context;
+        private readonly HVACCompanyContext _context;
 
-        public HVACEquipmentsController(HVACEquipmentContext context)
+        public HVACEquipmentsController(HVACCompanyContext context)
         {
             _context = context;
         }
@@ -44,7 +46,7 @@ namespace HVACProject3.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutHVACEquipment(long id, HVACEquipment hVACEquipment)
         {
-            if (id != hVACEquipment.Id)
+            if (id != hVACEquipment.EquipmentId)
             {
                 return BadRequest();
             }
@@ -78,7 +80,7 @@ namespace HVACProject3.Controllers
             _context.HVACEquipments.Add(hVACEquipment);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetHVACEquipment), new { id = hVACEquipment.Id }, hVACEquipment);
+            return CreatedAtAction(nameof(GetHVACEquipment), new { id = hVACEquipment.EquipmentId }, hVACEquipment);
         }
 
 
@@ -100,7 +102,7 @@ namespace HVACProject3.Controllers
 
         private bool HVACEquipmentExists(long id)
         {
-            return _context.HVACEquipments.Any(e => e.Id == id);
+            return _context.HVACEquipments.Any(e => e.EquipmentId == id);
         }
     }
 }

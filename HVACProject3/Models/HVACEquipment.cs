@@ -1,9 +1,12 @@
-﻿namespace HVACProject3.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace HVACProject3.Models
 {
     public class HVACEquipment
     {
-        public long Id { get; set; }
+        [Key]
+        public long EquipmentId { get; set; }
         public string Name { get; set; }
-        public bool IsComplete { get; set; }
+        public HVACEquipmentLocation Location { get; set; }
     }
 }
