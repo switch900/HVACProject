@@ -1,36 +1,18 @@
-import React from 'react'
-import api from '../src/components/FetchData'
+import 'bootstrap/dist/css/bootstrap.css';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+import registerServiceWorker from './registerServiceWorker';
 
-const IndexPage = () => {
-    // Create state variables
-    let [responseData, setResponseData] = React.useState('')
+const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
+const rootElement = document.getElementById('root');
 
-    // fetches data
-    const fetchData = (e) => {
-        e.preventDefault()
+ReactDOM.render(
+  <BrowserRouter basename={baseUrl}>
+    <App />
+  </BrowserRouter>,
+  rootElement);
 
-        api.getData()
-            .then((response) => {
-                setResponseData(response.data)
-                console.log(response)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    }
+registerServiceWorker();
 
-
-    return (
-        <div>
-            <h1>{responseData.title}</h1>
-
-            <button onClick={(e) => fetchData(e)} type='button'>Click Me For Data</button>
-
-            {responseData.dates && responseData.dates.map(date => {
-                return <p>{date}</p>
-            })}
-        </div>
-    )
-}
-
-export default IndexPage

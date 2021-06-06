@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using HVACProject3.Models;
 
 namespace HVACProject3.Models
 {

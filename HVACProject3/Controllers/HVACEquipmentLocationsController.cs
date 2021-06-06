@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Cors;
 
 namespace HVACProject3.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/HVACEquipmentLocations")]
     [EnableCors("HVACEquipmentPolicy")]
     [ApiController]
     public class HVACEquipmentLocationsController : ControllerBase
