@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+﻿import React, { Component } from 'react';
 import axios from "axios";
 
-export class FetchData extends Component {
-    static displayName = FetchData.name;
+export class EquipmentAddNew extends Component {
+
+    static displayName = EquipmentAddNew.name;
 
     constructor(props) {
         super(props);
@@ -22,28 +23,7 @@ export class FetchData extends Component {
         this.populateEquipmentData();
     }
 
-    static renderEquipmentsTable(equipments) {
-        return (
-            <table className='table table-striped' aria-labelledby="tabelLabel">
-                <thead>
-                    <tr>
-                        <th>Equipment ID</th>
-                        <th>Name</th>
-                        <th>Location</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {equipments.map(equipment =>
-                        <tr key={equipment.equipmentId}>
-                            <td>{equipment.equipmentId}</td>
-                            <td>{equipment.name}</td>
-                            <td>{equipment.location}</td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
-        );
-    }
+ 
 
     onChangeEquipmentName(e) {
         this.setState({ name: e.target.value })
@@ -54,13 +34,13 @@ export class FetchData extends Component {
     }
 
     onSubmit(e) {
-        
+
         e.preventDefault()
 
- 
-        
+
+
         const equipmentObject = {
-           // equipmentId:Date.now(),
+            // equipmentId:Date.now(),
             name: this.state.name
             /*,
             location: this.state.location*/
@@ -78,15 +58,10 @@ export class FetchData extends Component {
     }
 
     render() {
-        let contents = this.state.loading
-            ? <p><em>Loading...</em></p>
-            : FetchData.renderEquipmentsTable(this.state.equipments);
-
+        
         return (
             <div>
-                <h1 id="tabelLabel" >HVAC Equipment</h1>
-                <p>This is a list of all the equipment in the database.</p>
-                {contents}
+               
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Add Equipment Name</label>
@@ -118,3 +93,4 @@ export class FetchData extends Component {
             });
     };
 }
+
