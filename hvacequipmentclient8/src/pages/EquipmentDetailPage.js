@@ -130,10 +130,10 @@ const EquipmentDetailPage = ({ match }) => {
                             <p><b>Province: </b>{equipmentInfo.location.province}</p>
                             <p><b>Postal Code: </b>{equipmentInfo.location.postalCode}</p>
                         </td>
-                        <td style={{ "width": "20%", "verticalAlign": "top" }}>
+                        {/* <td style={{ "width": "20%", "verticalAlign": "top" }}>
                             <h3>Others:</h3>
                             <EquipmentList exceptId={equipmentInfo.id} />
-                        </td>
+                        </td> */}
                     </tr>
                 </tbody>
             </table>
