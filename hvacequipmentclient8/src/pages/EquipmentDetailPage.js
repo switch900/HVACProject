@@ -49,7 +49,6 @@ const EquipmentDetailPage = ({ match }) => {
     const handleSaveItem = (equipmentId) => {
         setIsEditable(false);
         const url = 'https://localhost:44349/api/HVACEquipments/' + equipmentId;
-        //const url = 'https://localhost:44367/santalists/' + localStorage.getItem('userId');
         console.log(url);
         fetch(url, {
             method: 'PUT',
@@ -73,7 +72,7 @@ const EquipmentDetailPage = ({ match }) => {
                     alert("Not valid information");
                 }
             }, function (error) {
-                console.log(error.message); //=> String
+                console.log(error.message);
             })
 
     }

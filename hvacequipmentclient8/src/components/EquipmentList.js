@@ -21,19 +21,19 @@ const EquipmentList = (exceptId) => {
         others = Object.values(equipmentInfo).filter(p => p.equipmentId !== exceptId.exceptId);
     }
 
-    const handleRemoveItem = async (equipmentId) => {
-        const url = 'https://localhost:44349/api/HVACEquipments/' + equipmentId;
-        fetch(url, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: null
-        });
-        alert("you deleted equipment ID# " + equipmentId);
-        const tmp = others.filter(u => u.equipmentId !== equipmentId);
-        setEquipmentInfo(tmp);
-    }
+    // const handleRemoveItem = async (equipmentId) => {
+    //     const url = 'https://localhost:44349/api/HVACEquipments/' + equipmentId;
+    //     fetch(url, {
+    //         method: 'DELETE',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: null
+    //     });
+    //     alert("you deleted equipment ID# " + equipmentId);
+    //     const tmp = others.filter(u => u.equipmentId !== equipmentId);
+    //     setEquipmentInfo(tmp);
+    // }
 
     const history = useHistory();
 
@@ -69,14 +69,14 @@ const EquipmentList = (exceptId) => {
                                 <td>
                                     {item.location.locationName}
                                 </td>
-                                <td>
+                                {/* <td>
                                     <button
                                         type="button"
                                         className="btn btn-danger"
                                         onClick={() => handleRemoveItem(item.equipmentId)}>
                                         Delete
                                     </button>
-                                </td>
+                                </td> */}
                             </tr>
                         ))}
                     </tbody>
