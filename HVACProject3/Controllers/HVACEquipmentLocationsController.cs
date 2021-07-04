@@ -20,31 +20,54 @@ namespace HVACProject3.Controllers
             _context = context;
         }
 
+        //// GET: api/HVACEquipmentLocations
+        //[HttpGet]
+        //public IQueryable<HVACEquipmentLocation> GGetHVACEquipmentLocations()
+        //{
+        //    return _context.HVACEquipmentLocations;
+        //}
+
         // GET: api/HVACEquipmentLocations
         [HttpGet]
         public async Task<ActionResult<IEnumerable<HVACEquipmentLocation>>> GetHVACEquipmentLocations()
         {
             return await _context.HVACEquipmentLocations.ToListAsync();
         }
-
         // GET: api/HVACEquipmentLocations/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<HVACEquipmentLocation>> GetHVACEquipmentLocation(long id)
+        public async Task<ActionResult<HVACEquipmentLocation>> GetHVACEquipmentLocation(int id)
         {
-            var hVACEquipmentLocation = await _context.HVACEquipmentLocations.FindAsync(id);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var hVACEquipmentLocation = await _context.HVACEquipmentLocations
+                //.Include(i => i.HvacEquipment)               
+                .FirstOrDefaultAsync(i => i.LocationId == id);
+
 
             if (hVACEquipmentLocation == null)
             {
                 return NotFound();
             }
 
-            return hVACEquipmentLocation;
+            return Ok(hVACEquipmentLocation);
         }
+        //var hVACEquipmentLocation = await _context.HVACEquipmentLocations.FindAsync(id);
+
+        //    if (hVACEquipmentLocation == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return hVACEquipmentLocation;
+        //}
 
         // PUT: api/HVACEquipmentLocations/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHVACEquipmentLocation(long id, HVACEquipmentLocation hVACEquipmentLocation)
+        public async Task<IActionResult> PutHVACEquipmentLocation(int id, HVACEquipmentLocation hVACEquipmentLocation)
         {
             if (id != hVACEquipmentLocation.LocationId)
             {
@@ -85,7 +108,7 @@ namespace HVACProject3.Controllers
 
         // DELETE: api/HVACEquipmentLocations/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteHVACEquipmentLocation(long id)
+        public async Task<IActionResult> DeleteHVACEquipmentLocation(int id)
         {
             var hVACEquipmentLocation = await _context.HVACEquipmentLocations.FindAsync(id);
             if (hVACEquipmentLocation == null)
@@ -99,9 +122,23 @@ namespace HVACProject3.Controllers
             return NoContent();
         }
 
-        private bool HVACEquipmentLocationExists(long id)
+        private bool HVACEquipmentLocationExists(int id)
         {
             return _context.HVACEquipmentLocations.Any(e => e.LocationId == id);
+        }
+
+        // GET api/hvaclocations/3/hvacequipment
+        [HttpGet("{id:int}/hvacequipment")]
+        public async Task<IActionResult> GetHvacEquipment(int id)
+        {
+            var hVACEquipmentLocation = await _context.HVACEquipmentLocations
+              .Include(m => m.HvacEquipment)
+              .FirstOrDefaultAsync(i => i.LocationId == id);
+
+            if (hVACEquipmentLocation == null)
+                return NotFound();
+
+            return Ok(hVACEquipmentLocation.HvacEquipment);
         }
     }
 }

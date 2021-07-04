@@ -13,9 +13,9 @@ namespace HVACProject3.Models
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<HVACCustomer>().Property(p => p.CustomerId);
             builder.Entity<HVACEquipment>().Property(p => p.EquipmentId);
             builder.Entity<HVACEquipmentLocation>().Property(p => p.LocationId);
+            builder.Entity<HVACCustomer>().Property(p => p.CustomerId);
             builder.Entity<OfficeAdmin>().Property(p => p.EmployeeId);
             builder.Entity<SystemAdmin>().Property(p => p.EmployeeId);
             builder.Entity<Supervisor>().Property(p => p.EmployeeId);
@@ -32,6 +32,8 @@ namespace HVACProject3.Models
         public DbSet<SystemAdmin> SystemAdmins { get; set; }
         public DbSet<Supervisor> Supervisors { get; set; }
         public DbSet<Technician> Technicians { get; set; }
+        public DbSet<HVACProject3.Models.Account> Account { get; set; }
+        public DbSet<HVACProject3.Models.Owner> Owner { get; set; }
     }
 }
 

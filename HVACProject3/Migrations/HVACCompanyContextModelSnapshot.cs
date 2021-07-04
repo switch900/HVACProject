@@ -19,11 +19,33 @@ namespace HVACProject3.Migrations
                 .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("HVACProject3.Models.Account", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("AccountId");
+
+                    b.Property<string>("AccountType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("OwnerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("account");
+                });
+
             modelBuilder.Entity("HVACProject3.Models.HVACCustomer", b =>
                 {
-                    b.Property<long>("CustomerId")
+                    b.Property<int>("CustomerId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
@@ -48,23 +70,18 @@ namespace HVACProject3.Migrations
 
             modelBuilder.Entity("HVACProject3.Models.HVACEquipment", b =>
                 {
-                    b.Property<long>("EquipmentId")
+                    b.Property<int>("EquipmentId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("HVACCustomerCustomerId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("LocationId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("EquipmentId");
-
-                    b.HasIndex("HVACCustomerCustomerId");
 
                     b.HasIndex("LocationId");
 
@@ -73,12 +90,24 @@ namespace HVACProject3.Migrations
 
             modelBuilder.Entity("HVACProject3.Models.HVACEquipmentLocation", b =>
                 {
-                    b.Property<long>("LocationId")
+                    b.Property<int>("LocationId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LocationName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Province")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("LocationId");
@@ -88,9 +117,9 @@ namespace HVACProject3.Migrations
 
             modelBuilder.Entity("HVACProject3.Models.OfficeAdmin", b =>
                 {
-                    b.Property<long>("EmployeeId")
+                    b.Property<int>("EmployeeId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AccessLevel")
@@ -113,11 +142,36 @@ namespace HVACProject3.Migrations
                     b.ToTable("OfficeAdmins");
                 });
 
+            modelBuilder.Entity("HVACProject3.Models.Owner", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("OwnerId");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("owner");
+                });
+
             modelBuilder.Entity("HVACProject3.Models.Supervisor", b =>
                 {
-                    b.Property<long>("EmployeeId")
+                    b.Property<int>("EmployeeId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AccessLevel")
@@ -142,9 +196,9 @@ namespace HVACProject3.Migrations
 
             modelBuilder.Entity("HVACProject3.Models.SystemAdmin", b =>
                 {
-                    b.Property<long>("EmployeeId")
+                    b.Property<int>("EmployeeId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AccessLevel")
@@ -169,9 +223,9 @@ namespace HVACProject3.Migrations
 
             modelBuilder.Entity("HVACProject3.Models.Technician", b =>
                 {
-                    b.Property<long>("EmployeeId")
+                    b.Property<int>("EmployeeId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AccessLevel")
@@ -196,20 +250,18 @@ namespace HVACProject3.Migrations
 
             modelBuilder.Entity("HVACProject3.Models.HVACEquipment", b =>
                 {
-                    b.HasOne("HVACProject3.Models.HVACCustomer", null)
-                        .WithMany("HVACEquipments")
-                        .HasForeignKey("HVACCustomerCustomerId");
-
                     b.HasOne("HVACProject3.Models.HVACEquipmentLocation", "Location")
-                        .WithMany()
-                        .HasForeignKey("LocationId");
+                        .WithMany("HvacEquipment")
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Location");
                 });
 
-            modelBuilder.Entity("HVACProject3.Models.HVACCustomer", b =>
+            modelBuilder.Entity("HVACProject3.Models.HVACEquipmentLocation", b =>
                 {
-                    b.Navigation("HVACEquipments");
+                    b.Navigation("HvacEquipment");
                 });
 #pragma warning restore 612, 618
         }

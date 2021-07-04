@@ -31,7 +31,7 @@ namespace HVACProject3.Controllers
 
         // GET: api/HVACCustomers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<HVACCustomer>> GetHVACCustomer(long id)
+        public async Task<ActionResult<HVACCustomer>> GetHVACCustomer(int id)
         {
             var hVACCustomer = await _context.HVACCustomers.FindAsync(id);
 
@@ -46,7 +46,7 @@ namespace HVACProject3.Controllers
         // PUT: api/HVACCustomers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHVACCustomer(long id, HVACCustomer hVACCustomer)
+        public async Task<IActionResult> PutHVACCustomer(int id, HVACCustomer hVACCustomer)
         {
             if (id != hVACCustomer.CustomerId)
             {
@@ -87,7 +87,7 @@ namespace HVACProject3.Controllers
 
         // DELETE: api/HVACCustomers/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteHVACCustomer(long id)
+        public async Task<IActionResult> DeleteHVACCustomer(int id)
         {
             var hVACCustomer = await _context.HVACCustomers.FindAsync(id);
             if (hVACCustomer == null)
@@ -101,7 +101,7 @@ namespace HVACProject3.Controllers
             return NoContent();
         }
 
-        private bool HVACCustomerExists(long id)
+        private bool HVACCustomerExists(int id)
         {
             return _context.HVACCustomers.Any(e => e.CustomerId == id);
         }

@@ -1,16 +1,31 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HVACProject3.Migrations
 {
-    public partial class _060221 : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "account",
+                columns: table => new
+                {
+                    AccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AccountType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_account", x => x.AccountId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "HVACCustomers",
                 columns: table => new
                 {
-                    CustomerId = table.Column<long>(type: "bigint", nullable: false)
+                    CustomerId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ContactName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -27,9 +42,13 @@ namespace HVACProject3.Migrations
                 name: "HVACEquipmentLocations",
                 columns: table => new
                 {
-                    LocationId = table.Column<long>(type: "bigint", nullable: false)
+                    LocationId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    LocationName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Province = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -40,7 +59,7 @@ namespace HVACProject3.Migrations
                 name: "OfficeAdmins",
                 columns: table => new
                 {
-                    EmployeeId = table.Column<long>(type: "bigint", nullable: false)
+                    EmployeeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -54,10 +73,24 @@ namespace HVACProject3.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "owner",
+                columns: table => new
+                {
+                    OwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_owner", x => x.OwnerId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Supervisors",
                 columns: table => new
                 {
-                    EmployeeId = table.Column<long>(type: "bigint", nullable: false)
+                    EmployeeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -74,7 +107,7 @@ namespace HVACProject3.Migrations
                 name: "SystemAdmins",
                 columns: table => new
                 {
-                    EmployeeId = table.Column<long>(type: "bigint", nullable: false)
+                    EmployeeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -91,7 +124,7 @@ namespace HVACProject3.Migrations
                 name: "Technicians",
                 columns: table => new
                 {
-                    EmployeeId = table.Column<long>(type: "bigint", nullable: false)
+                    EmployeeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -108,11 +141,11 @@ namespace HVACProject3.Migrations
                 name: "HVACEquipments",
                 columns: table => new
                 {
-                    EquipmentId = table.Column<long>(type: "bigint", nullable: false)
+                    EquipmentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LocationId = table.Column<long>(type: "bigint", nullable: true),
-                    HVACCustomerCustomerId = table.Column<long>(type: "bigint", nullable: true)
+                    LocationId = table.Column<int>(type: "int", nullable: false),
+                    HVACCustomerCustomerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -128,7 +161,7 @@ namespace HVACProject3.Migrations
                         column: x => x.LocationId,
                         principalTable: "HVACEquipmentLocations",
                         principalColumn: "LocationId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -145,10 +178,16 @@ namespace HVACProject3.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "account");
+
+            migrationBuilder.DropTable(
                 name: "HVACEquipments");
 
             migrationBuilder.DropTable(
                 name: "OfficeAdmins");
+
+            migrationBuilder.DropTable(
+                name: "owner");
 
             migrationBuilder.DropTable(
                 name: "Supervisors");
