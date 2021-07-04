@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import './EquipmentList.css'
 
 const EquipmentList = (exceptId) => {
     const [equipmentInfo, setEquipmentInfo] = useState({});
