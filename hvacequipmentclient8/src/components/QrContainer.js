@@ -15,6 +15,7 @@ class QrContainer extends Component {
     handleScan(result) {
         if (result) {
             this.setState({ result })
+            //result.To
             window.open('http://localhost:3000/detail/' + result);
         }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import EquipmentList from '../components/EquipmentList';
+//import EquipmentList from '../components/EquipmentList';
 import NotFoundPage from './NotFoundPage';
 import { useState } from 'react';
 import { useEffect } from 'react';

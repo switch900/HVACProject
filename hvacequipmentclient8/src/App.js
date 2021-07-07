@@ -14,6 +14,10 @@ import EquipmentListPage from './pages/EquipmentListPage';
 import EquipmentDetailPage from './pages/EquipmentDetailPage';
 import NavBar from './NavBar';
 import NotFoundPage from './pages/NotFoundPage';
+import DisplayAllLocation from './pages/Locations/DisplayAllLocations/DisplayAllLocations';
+import AddLocation from './pages/Locations/AddLocation/AddLocation';
+import DisplayAllEmployees from './pages/Employees/DisplayAllEmployees/DisplayAllEmployees';
+import AddEmployee from './pages/Employees/AddEmployee/AddEmployee';
 
 function App() {
   return (
@@ -25,6 +29,11 @@ function App() {
           <Route path="/about" component={AboutPage} exact />
           <Route path="/list" component={EquipmentListPage} exact />
           <Route path="/detail/:id" component={EquipmentDetailPage} exact />
+          <Route path="/displayAllLocations" component={DisplayAllLocation} exact />
+          <Route path="/addLocation" component={AddLocation} exact />
+          <Route path="/displayAllEmployees" component={DisplayAllEmployees} exact />
+          <Route path="/addEmployee" component={AddEmployee} exact />
+
           <Route component={NotFoundPage} />
         </Switch>
       </div>
