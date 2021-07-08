@@ -4,22 +4,22 @@ import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import './EquipmentList.css'
 
-const EquipmentList = (exceptId) => {
-    const [equipmentInfo, setEquipmentInfo] = useState({});
+const LocationList = (exceptId) => {
+    const [locationInfo, setLocationInfo] = useState({});
 
     useEffect(() => {
         const fetchData = async () => {
-            const result = await fetch(`https://localhost:44349/api/HVACEquipments`);
+            const result = await fetch(`https://localhost:44349/api/HVACEquipmentLocations`);
             const body = await result.json();
-            setEquipmentInfo(body);
+            setLocationInfo(body);
         }
         fetchData();
     }, []);
 
-    var others = equipmentInfo;
+    var others = locationInfo;
 
     if (exceptId !== undefined) {
-        others = Object.values(equipmentInfo).filter(p => p.equipmentId !== exceptId.exceptId);
+        others = Object.values(locationInfo).filter(p => p.locationId !== exceptId.exceptId);
     }
 
     // const handleRemoveItem = async (equipmentId) => {
@@ -53,22 +53,34 @@ const EquipmentList = (exceptId) => {
                 <table className='table table-striped' aria-labelledby="tabelLabel">
                     <thead>
                         <tr>
-                            <th>Equipment ID</th>
-                            <th>Equipment Name</th>
-                            <th>Location</th>
+                            <th>Location ID</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>City</th>
+                            <th>Province</th>
+                            <th>Postal Code</th>
                         </tr>
                     </thead>
                     <tbody>
                         {others.map((item, key) => (
-                            <tr key={item.equipmentId} onClick={() => handleOnClick(item.equipmentId)}>
+                            <tr key={item.locationId} onClick={() => handleOnClick(item.locationId)}>
                                 <td>
-                                    {item.equipmentId}
+                                    {item.locationId}
                                 </td>
                                 <td>
-                                    {item.name}
+                                    {item.locationName}
                                 </td>
                                 <td>
-                                    {item.location.locationName}
+                                    {item.address}
+                                </td>
+                                <td>
+                                    {item.city}
+                                </td>
+                                <td>
+                                    {item.province}
+                                </td>
+                                <td>
+                                    {item.postalCode}
                                 </td>
                                 {/* <td>
                                     <button
@@ -87,4 +99,4 @@ const EquipmentList = (exceptId) => {
     )
 }
 
-export default EquipmentList;
+export default LocationList;

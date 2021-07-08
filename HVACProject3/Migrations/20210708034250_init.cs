@@ -22,6 +22,23 @@ namespace HVACProject3.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Employee",
+                columns: table => new
+                {
+                    EmployeeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AccessLevel = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employee", x => x.EmployeeId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "HVACCustomers",
                 columns: table => new
                 {
@@ -56,23 +73,6 @@ namespace HVACProject3.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OfficeAdmins",
-                columns: table => new
-                {
-                    EmployeeId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AccessLevel = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OfficeAdmins", x => x.EmployeeId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "owner",
                 columns: table => new
                 {
@@ -87,75 +87,17 @@ namespace HVACProject3.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Supervisors",
-                columns: table => new
-                {
-                    EmployeeId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AccessLevel = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Supervisors", x => x.EmployeeId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SystemAdmins",
-                columns: table => new
-                {
-                    EmployeeId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AccessLevel = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SystemAdmins", x => x.EmployeeId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Technicians",
-                columns: table => new
-                {
-                    EmployeeId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AccessLevel = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Technicians", x => x.EmployeeId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "HVACEquipments",
                 columns: table => new
                 {
                     EquipmentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LocationId = table.Column<int>(type: "int", nullable: false),
-                    HVACCustomerCustomerId = table.Column<int>(type: "int", nullable: true)
+                    LocationId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_HVACEquipments", x => x.EquipmentId);
-                    table.ForeignKey(
-                        name: "FK_HVACEquipments_HVACCustomers_HVACCustomerCustomerId",
-                        column: x => x.HVACCustomerCustomerId,
-                        principalTable: "HVACCustomers",
-                        principalColumn: "CustomerId",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_HVACEquipments_HVACEquipmentLocations_LocationId",
                         column: x => x.LocationId,
@@ -163,11 +105,6 @@ namespace HVACProject3.Migrations
                         principalColumn: "LocationId",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_HVACEquipments_HVACCustomerCustomerId",
-                table: "HVACEquipments",
-                column: "HVACCustomerCustomerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_HVACEquipments_LocationId",
@@ -181,25 +118,16 @@ namespace HVACProject3.Migrations
                 name: "account");
 
             migrationBuilder.DropTable(
-                name: "HVACEquipments");
-
-            migrationBuilder.DropTable(
-                name: "OfficeAdmins");
-
-            migrationBuilder.DropTable(
-                name: "owner");
-
-            migrationBuilder.DropTable(
-                name: "Supervisors");
-
-            migrationBuilder.DropTable(
-                name: "SystemAdmins");
-
-            migrationBuilder.DropTable(
-                name: "Technicians");
+                name: "Employee");
 
             migrationBuilder.DropTable(
                 name: "HVACCustomers");
+
+            migrationBuilder.DropTable(
+                name: "HVACEquipments");
+
+            migrationBuilder.DropTable(
+                name: "owner");
 
             migrationBuilder.DropTable(
                 name: "HVACEquipmentLocations");

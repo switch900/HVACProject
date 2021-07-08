@@ -19,9 +19,8 @@ import DisplayAllEmployees from './pages/Employees/DisplayAllEmployees/DisplayAl
 import AddEmployee from './pages/Employees/AddEmployee/AddEmployee';
 import DisplayAllCustomers from './pages/Customers/DisplayAllCustomers/DisplayAllCustomers';
 import AddCustomer from './pages/Customers/AddCustomer/AddCustomer';
-import EquipmentListPage from './pages/EquipmentListPage';
+import EquipmentListPage from './pages/Equipment/DisplayAllEquipment/EquipmentListPage';
 import AddEquipment from './pages/Equipment/AddEquipment/AddEquipment';
-import EquipmentDetailPage from './pages/EquipmentDetailPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 
 

@@ -10,50 +10,50 @@ using Microsoft.AspNetCore.Cors;
 
 namespace HVACProject3.Controllers
 {
-    [Route("api/SystemAdmins")]
+    [Route("api/employees")]
     [EnableCors("HVACEquipmentPolicy")]
     [ApiController]
-    public class SystemAdminsController : ControllerBase
+    public class EmployeesController : ControllerBase
     {
         private readonly HVACCompanyContext _context;
 
-        public SystemAdminsController(HVACCompanyContext context)
+        public EmployeesController(HVACCompanyContext context)
         {
             _context = context;
         }
 
-        // GET: api/SystemAdmins
+        // GET: api/Employees
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SystemAdmin>>> GetSystemAdmins()
+        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployee()
         {
-            return await _context.SystemAdmins.ToListAsync();
+            return await _context.Employee.ToListAsync();
         }
 
-        // GET: api/SystemAdmins/5
+        // GET: api/Employees/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<SystemAdmin>> GetSystemAdmin(long id)
+        public async Task<ActionResult<Employee>> GetEmployee(int id)
         {
-            var systemAdmin = await _context.SystemAdmins.FindAsync(id);
+            var employee = await _context.Employee.FindAsync(id);
 
-            if (systemAdmin == null)
+            if (employee == null)
             {
                 return NotFound();
             }
 
-            return systemAdmin;
+            return employee;
         }
 
-        // PUT: api/SystemAdmins/5
+        // PUT: api/Employees/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSystemAdmin(long id, SystemAdmin systemAdmin)
+        public async Task<IActionResult> PutEmployee(int id, Employee employee)
         {
-            if (id != systemAdmin.EmployeeId)
+            if (id != employee.EmployeeId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(systemAdmin).State = EntityState.Modified;
+            _context.Entry(employee).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace HVACProject3.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SystemAdminExists(id))
+                if (!EmployeeExists(id))
                 {
                     return NotFound();
                 }
@@ -74,36 +74,36 @@ namespace HVACProject3.Controllers
             return NoContent();
         }
 
-        // POST: api/SystemAdmins
+        // POST: api/Employees
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<SystemAdmin>> PostSystemAdmin(SystemAdmin systemAdmin)
+        public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
         {
-            _context.SystemAdmins.Add(systemAdmin);
+            _context.Employee.Add(employee);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetSystemAdmin", new { id = systemAdmin.EmployeeId }, systemAdmin);
+            return CreatedAtAction("GetEmployee", new { id = employee.EmployeeId }, employee);
         }
 
-        // DELETE: api/SystemAdmins/5
+        // DELETE: api/Employees/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSystemAdmin(long id)
+        public async Task<IActionResult> DeleteEmployee(int id)
         {
-            var systemAdmin = await _context.SystemAdmins.FindAsync(id);
-            if (systemAdmin == null)
+            var employee = await _context.Employee.FindAsync(id);
+            if (employee == null)
             {
                 return NotFound();
             }
 
-            _context.SystemAdmins.Remove(systemAdmin);
+            _context.Employee.Remove(employee);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool SystemAdminExists(long id)
+        private bool EmployeeExists(int id)
         {
-            return _context.SystemAdmins.Any(e => e.EmployeeId == id);
+            return _context.Employee.Any(e => e.EmployeeId == id);
         }
     }
 }

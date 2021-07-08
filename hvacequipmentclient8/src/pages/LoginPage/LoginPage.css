@@ -18,3 +18,10 @@ input.btn.btn-primary {
     min-width: -webkit-fill-available;
   }
 
+h1{
+    padding:10px;
+}
+
+.List{
+    padding:10px;
+}

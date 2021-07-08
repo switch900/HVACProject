@@ -17,66 +17,62 @@ const NavBar = () => (
             <a className="navbar-brand" href="/"><img src={logo} width="128" className="d-inline-block align-top" alt="" /></a>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav ml-auto">
-                    <li>
-                        <UncontrolledDropdown nav inNavbar>
-                            <DropdownToggle nav caret>
-                                Employees
-                            </DropdownToggle>
-                            <DropdownMenu right>
-                                <DropdownItem href="/addEmployee">Add New Employee</DropdownItem>
-                                {/* <DropdownItem href="/employee-search">Find Employee</DropdownItem> */}
-                                <DropdownItem href="/displayAllEmployees">Display All Employee</DropdownItem>
-                                {/* <DropdownItem href="/employee-delete">Delete Employee</DropdownItem> */}
-                            </DropdownMenu>
-                        </UncontrolledDropdown>
-                    </li>
-                    <li>
-                        <UncontrolledDropdown nav inNavbar>
-                            <DropdownToggle nav caret>
-                                Customers
-                            </DropdownToggle>
-                            <DropdownMenu right>
-                                <DropdownItem href="/addCustomer">Add New Customer</DropdownItem>
-                                {/* <DropdownItem href="/customer-search">Find Customer</DropdownItem> */}
-                                <DropdownItem href="/displayAllCustomers">Display All Customers</DropdownItem>
-                                {/* <DropdownItem href="/customer-delete">Delete Customer</DropdownItem> */}
-                            </DropdownMenu>
-                        </UncontrolledDropdown>
-                    </li>
-                    <li>
-                        <UncontrolledDropdown nav inNavbar>
-                            <DropdownToggle nav caret>
-                                Locations
-                            </DropdownToggle>
-                            <DropdownMenu right>
-                                <DropdownItem href="/addLocation">Add New Location</DropdownItem>
-                                {/* <DropdownItem href="/location-search">Find Location</DropdownItem> */}
-                                <DropdownItem href="/displayAllLocations">Display All Locations</DropdownItem>
-                                {/* <DropdownItem href="/location-delete">Delete Location</DropdownItem> */}
-                            </DropdownMenu>
-                        </UncontrolledDropdown>
-                    </li>
-                    <li>
-                        <UncontrolledDropdown nav inNavbar>
-                            <DropdownToggle nav caret>
-                                Equipment
-                            </DropdownToggle>
-                            <DropdownMenu>
-                                <DropdownItem href="/addEquipment">Add New Equipment</DropdownItem>
-                                {/* <DropdownItem href="/equipment-search">Find Equipment</DropdownItem> */}
-                                <DropdownItem href="/list">Display All Equipment</DropdownItem>
-                                {/* <DropdownItem href="/equipment-delete">Delete Equipment</DropdownItem> */}
-                            </DropdownMenu>
-                        </UncontrolledDropdown>
-                    </li>
-                    <li className="nav-item">
+
+                    <UncontrolledDropdown nav inNavbar>
+                        <DropdownToggle nav caret>
+                            Employees
+                        </DropdownToggle>
+                        <DropdownMenu right>
+                            <DropdownItem href="/addEmployee">Add New Employee</DropdownItem>
+                            {/* <DropdownItem href="/employee-search">Find Employee</DropdownItem> */}
+                            <DropdownItem href="/displayAllEmployees">Display All Employee</DropdownItem>
+                            {/* <DropdownItem href="/employee-delete">Delete Employee</DropdownItem> */}
+                        </DropdownMenu>
+                    </UncontrolledDropdown>
+
+                    <UncontrolledDropdown nav inNavbar>
+                        <DropdownToggle nav caret>
+                            Customers
+                        </DropdownToggle>
+                        <DropdownMenu right>
+                            <DropdownItem href="/addCustomer">Add New Customer</DropdownItem>
+                            {/* <DropdownItem href="/customer-search">Find Customer</DropdownItem> */}
+                            <DropdownItem href="/displayAllCustomers">Display All Customers</DropdownItem>
+                            {/* <DropdownItem href="/customer-delete">Delete Customer</DropdownItem> */}
+                        </DropdownMenu>
+                    </UncontrolledDropdown>
+
+                    <UncontrolledDropdown nav inNavbar>
+                        <DropdownToggle nav caret>
+                            Locations
+                        </DropdownToggle>
+                        <DropdownMenu right>
+                            <DropdownItem href="/addLocation">Add New Location</DropdownItem>
+                            {/* <DropdownItem href="/location-search">Find Location</DropdownItem> */}
+                            <DropdownItem href="/displayAllLocations">Display All Locations</DropdownItem>
+                            {/* <DropdownItem href="/location-delete">Delete Location</DropdownItem> */}
+                        </DropdownMenu>
+                    </UncontrolledDropdown>
+
+                    <UncontrolledDropdown nav inNavbar>
+                        <DropdownToggle nav caret>
+                            Equipment
+                        </DropdownToggle>
+                        <DropdownMenu>
+                            <DropdownItem href="/addEquipment">Add New Equipment</DropdownItem>
+                            {/* <DropdownItem href="/equipment-search">Find Equipment</DropdownItem> */}
+                            <DropdownItem href="/list">Display All Equipment</DropdownItem>
+                            {/* <DropdownItem href="/equipment-delete">Delete Equipment</DropdownItem> */}
+                        </DropdownMenu>
+                    </UncontrolledDropdown>
+
+                    <NavItem>
                         <Link className="nav-link" to="/about">About</Link>
-                    </li>
-                    <li>
-                        <NavItem>
-                            <NavLink href="/login">Log In</NavLink>
-                        </NavItem>
-                    </li>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink href="/login">Log In</NavLink>
+                    </NavItem>
+
                     {/* <li className="nav-item active">
                         <Link className="nav-link" to="/">Home</Link>
                     </li> */}

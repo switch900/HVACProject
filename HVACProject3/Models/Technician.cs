@@ -1,6 +1,6 @@
 ﻿namespace HVACProject3.Models
 {
-    public class Technician:Employee
+    public class Technician
     {
     }
 }

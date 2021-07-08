@@ -2,7 +2,7 @@
 
 namespace HVACProject3.Models
 {
-    public abstract class Employee
+    public class Employee
     {
         [Key]
         public int EmployeeId { get; set; }
