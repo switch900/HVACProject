@@ -12,7 +12,7 @@ import {
 } from 'reactstrap'
 
 const NavBar = () => (
-    <>
+    <React.Fragment>
         <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
             <a className="navbar-brand" href="/"><img src={logo} width="128" className="d-inline-block align-top" alt="" /></a>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -36,10 +36,10 @@ const NavBar = () => (
                                 Customers
                             </DropdownToggle>
                             <DropdownMenu right>
-                                <DropdownItem href="/customer-add-new">Add New Customer</DropdownItem>
-                                <DropdownItem href="/customer-search">Find Customer</DropdownItem>
-                                <DropdownItem href="/customer-display-all">Display All Customers</DropdownItem>
-                                <DropdownItem href="/customer-delete">Delete Customer</DropdownItem>
+                                <DropdownItem href="/addCustomer">Add New Customer</DropdownItem>
+                                {/* <DropdownItem href="/customer-search">Find Customer</DropdownItem> */}
+                                <DropdownItem href="/displayAllCustomers">Display All Customers</DropdownItem>
+                                {/* <DropdownItem href="/customer-delete">Delete Customer</DropdownItem> */}
                             </DropdownMenu>
                         </UncontrolledDropdown>
                     </li>
@@ -62,10 +62,10 @@ const NavBar = () => (
                                 Equipment
                             </DropdownToggle>
                             <DropdownMenu>
-                                <DropdownItem href="/equipment-add-new">Add New Equipment</DropdownItem>
-                                <DropdownItem href="/equipment-search">Find Equipment</DropdownItem>
+                                <DropdownItem href="/addEquipment">Add New Equipment</DropdownItem>
+                                {/* <DropdownItem href="/equipment-search">Find Equipment</DropdownItem> */}
                                 <DropdownItem href="/list">Display All Equipment</DropdownItem>
-                                <DropdownItem href="/equipment-delete">Delete Equipment</DropdownItem>
+                                {/* <DropdownItem href="/equipment-delete">Delete Equipment</DropdownItem> */}
                             </DropdownMenu>
                         </UncontrolledDropdown>
                     </li>
@@ -74,7 +74,7 @@ const NavBar = () => (
                     </li>
                     <li>
                         <NavItem>
-                            <NavLink href="/">Log In</NavLink>
+                            <NavLink href="/login">Log In</NavLink>
                         </NavItem>
                     </li>
                     {/* <li className="nav-item active">
@@ -87,6 +87,6 @@ const NavBar = () => (
                 </ul>
             </div>
         </nav>
-    </>
+    </React.Fragment>
 );
 export default NavBar;
