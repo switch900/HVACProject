@@ -46,13 +46,13 @@ const AddEquipmentForm = ({ setEquipmentInfo }) => {
             }
         });
         const body = await result.json();
+
         console.log(body);
     }
 
     return (<React.Fragment>
         <div className="panel panel-default">
             <form>
-                <h3>Add Equipment</h3>
                 <div className="form-group">
                     <p>Name:</p>
                     <input className="form-control" type="text" placeholder="Name"

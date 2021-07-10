@@ -1,12 +1,12 @@
 import React from 'react';
 //import EquipmentList from '../components/EquipmentList';
-import NotFoundPage from './NotFoundPage';
+import NotFoundPage from '../../NotFoundPage';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import AddEquipmentForm from '../components/AddEquipmentForm/AddEquipmentForm';
-import './EquipmentDetailPage.css';
+// import AddEquipmentForm from '../../../ components/AddEquipmentForm/AddEquipmentForm';
+import './EquipmentDetail.css';
 
-const EquipmentDetailPage = ({ match }) => {
+const EquipmentDetail = ({ match }) => {
     const id = match.params.id;
 
     const [equipmentInfo, setEquipmentInfo] = useState({
@@ -104,25 +104,25 @@ const EquipmentDetailPage = ({ match }) => {
                             Edit
                         </button>
                     </div>
-                    <div className="btn-group" role="group" aria-label="Second group">
+                    {/* <div className="btn-group" role="group" aria-label="Second group">
                         <button
                             type="button"
                             className="btn btn-danger"
                             onClick={() => handleRemoveItem(equipmentInfo.equipmentId)}>
                             Delete
                         </button>
-                    </div>
+                    </div> */}
                 </div>)
             }
 
             <table style={{ "width": "90%", "margin": "auto" }}>
                 <tbody>
                     <tr>
-                        <td style={{ "width": "15%", "verticalAlign": "top" }}>
+                        {/* <td style={{ "width": "15%", "verticalAlign": "top" }}>
                             <img className="rounded img-responsive pull-right img-thumbnail float-left"
                                 style={{ "width": "50%" }}
                                 src={`${equipmentInfo.pictureUrl}`} alt={`${equipmentInfo.firstName} ${equipmentInfo.lastName}`} />
-                        </td>
+                        </td> */}
                         <td style={{ "width": "65%", "verticalAlign": "top" }}>
                             <p><b>Location: {equipmentInfo.location.locationName}</b></p>
                             <p><b>Address: </b>{equipmentInfo.location.address}</p>
@@ -137,8 +137,8 @@ const EquipmentDetailPage = ({ match }) => {
                     </tr>
                 </tbody>
             </table>
-            <AddEquipmentForm id={id} setEquipmentInfo={setEquipmentInfo} />
+            {/* <AddEquipmentForm id={id} setEquipmentInfo={setEquipmentInfo} /> */}
         </React.Fragment >
     );
 }
-export default EquipmentDetailPage;
+export default EquipmentDetail;

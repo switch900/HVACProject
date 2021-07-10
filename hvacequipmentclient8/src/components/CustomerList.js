@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import './EquipmentList.css'
+import { useHistory, Link } from 'react-router-dom';
+import './ListStyle.css'
 
 const CustomerList = (exceptId) => {
     const [customerInfo, setCustomerInfo] = useState({});
@@ -22,34 +22,35 @@ const CustomerList = (exceptId) => {
         others = Object.values(customerInfo).filter(p => p.customerId !== exceptId.exceptId);
     }
 
-    // const handleRemoveItem = async (equipmentId) => {
-    //     const url = 'https://localhost:44349/api/HVACEquipments/' + equipmentId;
-    //     fetch(url, {
-    //         method: 'DELETE',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: null
-    //     });
-    //     alert("you deleted equipment ID# " + equipmentId);
-    //     const tmp = others.filter(u => u.equipmentId !== equipmentId);
-    //     setEquipmentInfo(tmp);
-    // }
+    const handleRemoveItem = async (customerId) => {
+        const url = 'https://localhost:44349/api/HVACCustomers' + customerId;
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: null
+        });
+        alert("you deleted equipment ID# " + customerId);
+        const tmp = others.filter(u => u.customerId !== customerId);
+        setCustomerInfo(tmp);
+    }
 
     const history = useHistory();
 
-    const handleOnClick = useCallback((id) => history.push(`/detail/${id}`), [history]);
+    const handleOnClick = useCallback((id) => history.push(`/customerDetail/${id}`), [history]);
 
     return (
         <>
             <div className="List">
-                <button
-                    type="button"
-                    className="btn btn-success"
-                >
-                    Add New Customer
-                </button>
-
+                <Link to="/addCustomer">
+                    <button
+                        type="button"
+                        className="btn btn-success"
+                    >
+                        Add New Customer
+                    </button>
+                </Link>
                 <table className='table table-striped' aria-labelledby="tabelLabel">
                     <thead>
                         <tr>
@@ -63,7 +64,9 @@ const CustomerList = (exceptId) => {
                     </thead>
                     <tbody>
                         {others.map((item, key) => (
-                            <tr key={item.customerId} onClick={() => handleOnClick(item.customerId)}>
+                            <tr key={item.customerId}
+                                onClick={() => handleOnClick(item.customerId)}
+                            >
                                 <td>
                                     {item.customerId}
                                 </td>
@@ -82,14 +85,14 @@ const CustomerList = (exceptId) => {
                                 <td>
                                     {item.address}
                                 </td>
-                                {/* <td>
+                                <td>
                                     <button
                                         type="button"
                                         className="btn btn-danger"
-                                        onClick={() => handleRemoveItem(item.equipmentId)}>
+                                        onClick={() => handleRemoveItem(item.customerId)}>
                                         Delete
                                     </button>
-                                </td> */}
+                                </td>
                             </tr>
                         ))}
                     </tbody>

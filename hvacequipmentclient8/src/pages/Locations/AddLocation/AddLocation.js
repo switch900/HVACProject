@@ -1,6 +1,10 @@
 import React from 'react';
+import AddLocationForm from '../../../components/AddLocationForm/AddLocationForm';
 
 const AddLocation = () => (
-    <h1>Add Location</h1>
+    <div className="addForm">
+        <h1>Add Location</h1>
+        <AddLocationForm />
+    </div>
 );
 export default AddLocation;

@@ -108,7 +108,6 @@ namespace HVACProject3.Controllers
             _context.HVACEquipments.Add(hVACEquipment);
             await _context.SaveChangesAsync();
 
-            // Load author name
             _context.Entry(hVACEquipment).Reference(x => x.Location).Load();
 
             var dto = new HVACEquipment()

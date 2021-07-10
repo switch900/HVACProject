@@ -21,6 +21,10 @@ import DisplayAllCustomers from './pages/Customers/DisplayAllCustomers/DisplayAl
 import AddCustomer from './pages/Customers/AddCustomer/AddCustomer';
 import EquipmentListPage from './pages/Equipment/DisplayAllEquipment/EquipmentListPage';
 import AddEquipment from './pages/Equipment/AddEquipment/AddEquipment';
+import EquipmentDetail from './pages/Equipment/EquipmentDetail/EquipmentDetail';
+import CustomerDetail from './pages/Customers/CustomerDetail/CustomerDetail';
+import LocationDetail from './pages/Locations/LocationDetail/LocationDetail';
+import EmployeeDetail from './pages/Employees/EmployeeDetail/EmployeeDetail';
 import LoginPage from './pages/LoginPage/LoginPage';
 
 
@@ -41,6 +45,10 @@ function App() {
           <Route path="/displayAllCustomers" component={DisplayAllCustomers} exact />
           <Route path="/addCustomer" component={AddCustomer} exact />
           <Route path="/login" component={LoginPage} exact />
+          <Route path="/locationDetail/:id" component={LocationDetail} exact />
+          <Route path="/employeeDetail/:id" component={EmployeeDetail} exact />
+          <Route path="/equipmentDetail/:id" component={EquipmentDetail} exact />
+          <Route path="/customerDetail/:id" component={CustomerDetail} exact />
           <Route component={NotFoundPage} />
         </Switch>
       </div>

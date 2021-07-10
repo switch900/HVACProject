@@ -79,10 +79,26 @@ namespace HVACProject3.Controllers
         [HttpPost]
         public async Task<ActionResult<HVACCustomer>> PostHVACCustomer(HVACCustomer hVACCustomer)
         {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             _context.HVACCustomers.Add(hVACCustomer);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetHVACCustomer", new { id = hVACCustomer.CustomerId }, hVACCustomer);
+            var dto = new HVACCustomer()
+            {
+               CustomerId = hVACCustomer.CustomerId,
+               CompanyName = hVACCustomer.CompanyName,
+               ContactName = hVACCustomer.ContactName,
+               Email = hVACCustomer.Email,
+               PhoneNumber = hVACCustomer.PhoneNumber,
+               Address = hVACCustomer.Address
+    };
+            return CreatedAtAction(nameof(GetHVACCustomer), new
+            {
+                id = hVACCustomer.CustomerId
+            }, dto);
         }
 
         // DELETE: api/HVACCustomers/5

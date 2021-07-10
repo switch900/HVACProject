@@ -100,15 +100,31 @@ namespace HVACProject3.Controllers
         [HttpPost]
         public async Task<ActionResult<HVACEquipmentLocation>> PostHVACEquipmentLocation(HVACEquipmentLocation hVACEquipmentLocation)
         {
-            _context.HVACEquipmentLocations.Add(hVACEquipmentLocation);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetHVACEquipmentLocation", new { id = hVACEquipmentLocation.LocationId }, hVACEquipmentLocation);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                _context.HVACEquipmentLocations.Add(hVACEquipmentLocation);
+                await _context.SaveChangesAsync();
+                 var dto = new HVACEquipmentLocation()
+                {
+                    LocationId = hVACEquipmentLocation.LocationId,
+                    LocationName = hVACEquipmentLocation.LocationName,
+                    Address = hVACEquipmentLocation.Address,
+                    City = hVACEquipmentLocation.City,
+                    Province = hVACEquipmentLocation.Province,
+                    PostalCode = hVACEquipmentLocation.PostalCode,
+                    HvacEquipment = null
+                };
+                return CreatedAtAction(nameof(GetHVACEquipmentLocation), new
+                {
+                    id = hVACEquipmentLocation.LocationId
+                }, dto);
         }
 
         // DELETE: api/HVACEquipmentLocations/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteHVACEquipmentLocation(int id)
+            public async Task<IActionResult> DeleteHVACEquipmentLocation(int id)
         {
             var hVACEquipmentLocation = await _context.HVACEquipmentLocations.FindAsync(id);
             if (hVACEquipmentLocation == null)
