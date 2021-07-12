@@ -8,7 +8,7 @@ const EditEquipment = ({ match }) => {
     const id = match.params.equipmentId;
 
     const [name, setName] = useState('');
-    const [equipments, setEquipments] = useState([]);
+    const [locations, setLocations] = useState([]);
     const [equipment, setEquipment] = useState(
         {
             equipmentId: 0,
@@ -27,13 +27,23 @@ const EditEquipment = ({ match }) => {
         addEquipment();
     }, []);
 
+    useEffect(() => {
+        const addLocations = async () => {
+            const result = await fetch(`https://localhost:44349/api/HVACEquipmentLocations`);
+            const body = await result.json();
+            setLocations(body);
+
+        };
+        addLocations();
+    }, []);
+
 
     const onchangeSelect = (item) => {
         setEquipment(item);
     };
 
     const addEquipment = async () => {
-        const result = await fetch(`https://localhost:44349/api/HVACEquipments`, {
+        const result = await fetch(`https://localhost:44349/api/HVACEquipments` + id, {
             method: 'put',
             body: JSON.stringify({
                 name: name,
@@ -59,9 +69,9 @@ const EditEquipment = ({ match }) => {
                         value={name} onChange={(event) => setName(event.target.value)} />
                     <p>Location:</p>
                     <Select
-                        value={equipment}
+                        // value={equipment}
                         onChange={onchangeSelect}
-                        options={equipments}
+                        options={locations}
                         getOptionLabel={({ locationName }) => locationName}
                     />
                 </div>
