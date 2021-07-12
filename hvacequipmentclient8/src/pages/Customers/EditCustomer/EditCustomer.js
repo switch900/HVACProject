@@ -7,8 +7,11 @@ const EditCustomer = ({ match }) => {
 
     const id = match.params.customerId;
 
-    const [name, setName] = useState('');
-    const [customers, setCustomers] = useState([]);
+    const [companyName, setCompanyName] = useState('');
+    const [contactName, setContactName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [address, setAddress] = useState('');
     const [customer, setCustomer] = useState(
         {
             locationId: 0,
@@ -39,8 +42,11 @@ const EditCustomer = ({ match }) => {
         const result = await fetch(`https://localhost:44349/api/HVACCustomers`, {
             method: 'put',
             body: JSON.stringify({
-                name: name,
-                locationId: customer.locationId
+                companyName: companyName,
+                contactName: contactName,
+                email: email,
+                phoneNumber: phoneNumber,
+                address: address
             }),
             headers: {
                 'Accept': 'application/json',
@@ -56,18 +62,24 @@ const EditCustomer = ({ match }) => {
         <div className="panel panel-default">
             <form>
                 <div className="form-group">
-                    <p>Name:</p>
-                    <input className="form-control" type="text" placeholder="Name"
-                        value={name} onChange={(event) => setName(event.target.value)} />
-                    <p>Location:</p>
-                    <Select
-                        value={customer}
-                        onChange={onchangeSelect}
-                        options={customers}
-                        getOptionLabel={({ locationName }) => locationName}
-                    />
+                    <p>Company Name:</p>
+                    <input className="form-control" type="text" placeholder="Company Name"
+                        value={companyName} onChange={(event) => setCompanyName(event.target.value)} />
+                    <p>Contact Name:</p>
+                    <input className="form-control" type="text" placeholder="Contact Name"
+                        value={contactName} onChange={(event) => setContactName(event.target.value)} />
+                    <p>Email:</p>
+                    <input className="form-control" type="text" placeholder="Email"
+                        value={email} onChange={(event) => setEmail(event.target.value)} />
+                    <p>Phone Number:</p>
+                    <input className="form-control" type="text" placeholder="Phone Number"
+                        value={phoneNumber} onChange={(event) => setPhoneNumber(event.target.value)} />
+                    <p>Address:</p>
+                    <input className="form-control" type="text" placeholder="Address"
+                        value={address} onChange={(event) => setAddress(event.target.value)} />
+
                 </div>
-                <button onClick={() => addCustomer()} className="btn btn-success" >Add</button>
+                <button onClick={() => addCustomer()} className="btn btn-success" >Save</button>
             </form>
         </div>
     </React.Fragment >
