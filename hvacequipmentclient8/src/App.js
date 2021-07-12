@@ -26,6 +26,10 @@ import CustomerDetail from './pages/Customers/CustomerDetail/CustomerDetail';
 import LocationDetail from './pages/Locations/LocationDetail/LocationDetail';
 import EmployeeDetail from './pages/Employees/EmployeeDetail/EmployeeDetail';
 import LoginPage from './pages/LoginPage/LoginPage';
+import EditEquipment from './pages/Equipment/EditEquipment/EditEquipment';
+import EditCustomer from './pages/Customers/EditCustomer/EditCustomer';
+import EditLocation from './pages/Locations/EditLocation/EditLocation';
+import EditEmployee from './pages/Employees/EditEmployee/EditEmployee';
 
 
 function App() {
@@ -36,7 +40,7 @@ function App() {
         <Switch>
           <Route path="/" component={HomePage} exact />
           <Route path="/about" component={AboutPage} exact />
-          <Route path="/list" component={EquipmentListPage} exact />
+          <Route path="/displayAllEquipment" component={EquipmentListPage} exact />
           <Route path="/addEquipment" component={AddEquipment} exact />
           <Route path="/displayAllLocations" component={DisplayAllLocation} exact />
           <Route path="/addLocation" component={AddLocation} exact />
@@ -49,6 +53,11 @@ function App() {
           <Route path="/employeeDetail/:id" component={EmployeeDetail} exact />
           <Route path="/equipmentDetail/:id" component={EquipmentDetail} exact />
           <Route path="/customerDetail/:id" component={CustomerDetail} exact />
+          <Route path="/editEquipment/:id" component={EditEquipment} exact />
+          <Route path="/editCustomer/:id" component={EditCustomer} exact />
+          <Route path="/editLocation/:id" component={EditLocation} exact />
+          <Route path="/editEmployee/:id" component={EditEmployee} exact />
+
           <Route component={NotFoundPage} />
         </Switch>
       </div>

@@ -61,7 +61,7 @@ const NavBar = () => (
                         <DropdownMenu>
                             <DropdownItem href="/addEquipment">Add New Equipment</DropdownItem>
                             {/* <DropdownItem href="/equipment-search">Find Equipment</DropdownItem> */}
-                            <DropdownItem href="/list">Display All Equipment</DropdownItem>
+                            <DropdownItem href="/displayAllEquipment">Display All Equipment</DropdownItem>
                             {/* <DropdownItem href="/equipment-delete">Delete Equipment</DropdownItem> */}
                         </DropdownMenu>
                     </UncontrolledDropdown>

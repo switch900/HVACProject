@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 // import AddEquipmentForm from '../../../ components/AddEquipmentForm/AddEquipmentForm';
 import './LocationDetail.css';
+import { Link } from 'react-router-dom';
 
 const LocationDetail = ({ match }) => {
     const id = match.params.id;
@@ -99,12 +100,14 @@ const LocationDetail = ({ match }) => {
                 :
                 (<div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                     <div className="btn-group" role="group" aria-label="First group">
-                        <button
-                            type="button"
-                            className="btn btn-success"
-                            onClick={() => handleEditClick()}>
-                            Edit
-                        </button>
+                        <Link key={locationInfo.locationId} to={`/editLocation/${locationInfo.locationId}`}>
+                            <button
+                                style={{ position: "block" }}
+                                className="btn btn-primary"
+                                type='button'
+                                text='Edit Profile'
+                            >Edit Location</button>
+                        </Link>
                     </div>
                     {/* <div className="btn-group" role="group" aria-label="Second group">
                         <button

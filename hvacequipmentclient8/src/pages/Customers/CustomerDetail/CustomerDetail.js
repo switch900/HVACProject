@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 // import AddEquipmentForm from '../../../ components/AddEquipmentForm/AddEquipmentForm';
 import './CustomerDetail.css';
+import { Link } from 'react-router-dom';
 
 const CustomerDetail = ({ match }) => {
     const id = match.params.id;
@@ -99,12 +100,14 @@ const CustomerDetail = ({ match }) => {
                 :
                 (<div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                     <div className="btn-group" role="group" aria-label="First group">
-                        <button
-                            type="button"
-                            className="btn btn-success"
-                            onClick={() => handleEditClick()}>
-                            Edit
-                        </button>
+                        <Link key={customerInfo.customerId} to={`/editCustomer/${customerInfo.customerId}`}>
+                            <button
+                                style={{ position: "block" }}
+                                className="btn btn-primary"
+                                type='button'
+                                text='Edit Profile'
+                            >Edit Customer</button>
+                        </Link>
                     </div>
                     {/* <div className="btn-group" role="group" aria-label="Second group">
                         <button
