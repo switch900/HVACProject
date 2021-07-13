@@ -15,9 +15,15 @@ export class NavBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userName: ''
+            userName: 'Andrew'
         };
     }
+
+    // componentDidMount() {
+    //     this.setState = {
+    //         userName: ''
+    //     };
+    // }
 
     render() {
         return (
@@ -82,7 +88,16 @@ export class NavBar extends Component {
                             {this.state.userName === '' ? (
                                 <NavLink href="/login"><div onClick={() => this.setState({ userName: 'Andrew' })}>Log In</div></NavLink>
                             ) : (
-                                <NavLink><div onClick={() => this.setState({ userName: '' })}>Hello {this.state.userName}!</div></NavLink>
+                                <UncontrolledDropdown nav inNavbar>
+                                    <DropdownToggle nav caret>
+                                        Hello {this.state.userName}!
+                                    </DropdownToggle>
+                                    <DropdownMenu>
+                                        <DropdownItem onClick={() => this.setState({ userName: '' })}>Log Out</DropdownItem>
+                                    </DropdownMenu>
+                                </UncontrolledDropdown>
+
+                                // <NavLink><div onClick={() => this.setState({ userName: '' })}>Hello {this.state.userName}!</div></NavLink>
                             )}
                         </NavItem>
                     </ul>
