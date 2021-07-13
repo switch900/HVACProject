@@ -69,7 +69,7 @@ const CustomerDetail = ({ match }) => {
         })
             .then(res => res.json()).then(res => {
                 if (res) {
-                    alert("You have updated the equipment list" + this.state.username);
+                    alert("You have updated customer");
                 }
                 else {
                     alert("Not valid information");
@@ -80,36 +80,37 @@ const CustomerDetail = ({ match }) => {
 
     }
 
-    const handleEditClick = () => {
-        setIsEditable(true)
-    }
+    // const handleEditClick = () => {
+    //     setIsEditable(true)
+    // }
 
     return (
         <React.Fragment>
-            <h4 className="text-info">{customerInfo.customerId}. {customerInfo.companyName}</h4>
+            <div className="detailPageContainer">
+                <h4 className="text-info">{customerInfo.customerId}. {customerInfo.companyName}</h4>
 
-            {isEditable
-                ? (<div className="btn-group" role="group" aria-label="First group">
-                    <button
-                        type="button"
-                        className="btn btn-succes"
-                        onClick={() => handleSaveItem(customerInfo.equipmentId)}>
-                        Save
-                    </button>
-                </div>)
-                :
-                (<div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                    <div className="btn-group" role="group" aria-label="First group">
-                        <Link key={customerInfo.customerId} to={`/editCustomer/${customerInfo.customerId}`}>
-                            <button
-                                style={{ position: "block" }}
-                                className="btn btn-primary"
-                                type='button'
-                                text='Edit Profile'
-                            >Edit Customer</button>
-                        </Link>
-                    </div>
-                    {/* <div className="btn-group" role="group" aria-label="Second group">
+                {isEditable
+                    ? (<div className="btn-group" role="group" aria-label="First group">
+                        <button
+                            type="button"
+                            className="btn btn-succes"
+                            onClick={() => handleSaveItem(customerInfo.equipmentId)}>
+                            Save
+                        </button>
+                    </div>)
+                    :
+                    (<div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                        <div className="btn-group" role="group" aria-label="First group">
+                            <Link key={customerInfo.customerId} to={`/editCustomer/${customerInfo.customerId}`}>
+                                <button
+                                    style={{ position: "block" }}
+                                    className="btn btn-primary"
+                                    type='button'
+                                    text='Edit Profile'
+                                >Edit Customer</button>
+                            </Link>
+                        </div>
+                        {/* <div className="btn-group" role="group" aria-label="Second group">
                         <button
                             type="button"
                             className="btn btn-danger"
@@ -117,30 +118,31 @@ const CustomerDetail = ({ match }) => {
                             Delete
                         </button>
                     </div> */}
-                </div>)
-            }
+                    </div>)
+                }
 
-            <table style={{ "width": "90%", "margin": "auto" }}>
-                <tbody>
-                    <tr>
-                        {/* <td style={{ "width": "15%", "verticalAlign": "top" }}>
+                <table style={{ "width": "90%", "margin": "auto" }}>
+                    <tbody>
+                        <tr>
+                            {/* <td style={{ "width": "15%", "verticalAlign": "top" }}>
                             <img className="rounded img-responsive pull-right img-thumbnail float-left"
                                 style={{ "width": "50%" }}
                                 src={`${customerInfo.pictureUrl}`} alt={`${customerInfo.firstName} ${customerInfo.lastName}`} />
                         </td> */}
-                        <td style={{ "width": "65%", "verticalAlign": "top" }}>
-                            <p><b>Contact Name: {customerInfo.contactName}</b></p>
-                            <p><b>Email: </b>{customerInfo.email}</p>
-                            <p><b>Phone Number: </b>{customerInfo.phoneNumber}</p>
-                            <p><b>Address: </b>{customerInfo.address}</p>
-                        </td>
-                        {/* <td style={{ "width": "20%", "verticalAlign": "top" }}>
+                            <td style={{ "width": "65%", "verticalAlign": "top" }}>
+                                <p><b>Contact Name: {customerInfo.contactName}</b></p>
+                                <p><b>Email: </b>{customerInfo.email}</p>
+                                <p><b>Phone Number: </b>{customerInfo.phoneNumber}</p>
+                                <p><b>Address: </b>{customerInfo.address}</p>
+                            </td>
+                            {/* <td style={{ "width": "20%", "verticalAlign": "top" }}>
                             <h3>Others:</h3>
                             <EquipmentList exceptId={equipmentInfo.id} />
                         </td> */}
-                    </tr>
-                </tbody>
-            </table>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             {/* <AddEquipmentForm id={id} setEquipmentInfo={setEquipmentInfo} /> */}
         </React.Fragment >
     );

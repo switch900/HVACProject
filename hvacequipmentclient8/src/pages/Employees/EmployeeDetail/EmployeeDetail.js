@@ -80,36 +80,37 @@ const EmployeeDetail = ({ match }) => {
 
     }
 
-    const handleEditClick = () => {
-        setIsEditable(true)
-    }
+    // const handleEditClick = () => {
+    //     setIsEditable(true)
+    // }
 
     return (
         <React.Fragment>
-            <h4 className="text-info">{employeeInfo.employeeId}. {employeeInfo.firstName} {employeeInfo.lastName}</h4>
+            <div className="detailPageContainer">
+                <h4 className="text-info">{employeeInfo.employeeId}. {employeeInfo.firstName} {employeeInfo.lastName}</h4>
 
-            {isEditable
-                ? (<div className="btn-group" role="group" aria-label="First group">
-                    <button
-                        type="button"
-                        className="btn btn-succes"
-                        onClick={() => handleSaveItem(employeeInfo.employeeId)}>
-                        Save
-                    </button>
-                </div>)
-                :
-                (<div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                    <div className="btn-group" role="group" aria-label="First group">
-                        <Link key={employeeInfo.employeeId} to={`/editEmployee/${employeeInfo.employeeId}`}>
-                            <button
-                                style={{ position: "block" }}
-                                className="btn btn-primary"
-                                type='button'
-                                text='Edit Profile'
-                            >Edit Employee</button>
-                        </Link>
-                    </div>
-                    {/* <div className="btn-group" role="group" aria-label="Second group">
+                {isEditable
+                    ? (<div className="btn-group" role="group" aria-label="First group">
+                        <button
+                            type="button"
+                            className="btn btn-succes"
+                            onClick={() => handleSaveItem(employeeInfo.employeeId)}>
+                            Save
+                        </button>
+                    </div>)
+                    :
+                    (<div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                        <div className="btn-group" role="group" aria-label="First group">
+                            <Link key={employeeInfo.employeeId} to={`/editEmployee/${employeeInfo.employeeId}`}>
+                                <button
+                                    style={{ position: "block" }}
+                                    className="btn btn-primary"
+                                    type='button'
+                                    text='Edit Profile'
+                                >Edit Employee</button>
+                            </Link>
+                        </div>
+                        {/* <div className="btn-group" role="group" aria-label="Second group">
                         <button
                             type="button"
                             className="btn btn-danger"
@@ -117,30 +118,31 @@ const EmployeeDetail = ({ match }) => {
                             Delete
                         </button>
                     </div> */}
-                </div>)
-            }
+                    </div>)
+                }
 
-            <table style={{ "width": "90%", "margin": "auto" }}>
-                <tbody>
-                    <tr>
-                        {/* <td style={{ "width": "15%", "verticalAlign": "top" }}>
+                <table style={{ "width": "90%", "margin": "auto" }}>
+                    <tbody>
+                        <tr>
+                            {/* <td style={{ "width": "15%", "verticalAlign": "top" }}>
                             <img className="rounded img-responsive pull-right img-thumbnail float-left"
                                 style={{ "width": "50%" }}
                                 src={`${employeeInfo.pictureUrl}`} alt={`${employeeInfo.firstName} ${employeeInfo.lastName}`} />
                         </td> */}
-                        <td style={{ "width": "65%", "verticalAlign": "top" }}>
-                            <p><b>Email:</b> {employeeInfo.email}</p>
-                            <p><b>Phone Number: </b>{employeeInfo.phoneNumber}</p>
-                            <p><b>Access Level: </b>{employeeInfo.accessLevel}</p>
-                        </td>
-                        {/* <td style={{ "width": "20%", "verticalAlign": "top" }}>
+                            <td style={{ "width": "65%", "verticalAlign": "top" }}>
+                                <p><b>Email:</b> {employeeInfo.email}</p>
+                                <p><b>Phone Number: </b>{employeeInfo.phoneNumber}</p>
+                                <p><b>Access Level: </b>{employeeInfo.accessLevel}</p>
+                            </td>
+                            {/* <td style={{ "width": "20%", "verticalAlign": "top" }}>
                             <h3>Others:</h3>
                             <EquipmentList exceptId={equipmentInfo.id} />
                         </td> */}
-                    </tr>
-                </tbody>
-            </table>
-            {/* <AddEquipmentForm id={id} setEquipmentInfo={setEquipmentInfo} /> */}
+                        </tr>
+                    </tbody>
+                </table>
+                {/* <AddEquipmentForm id={id} setEquipmentInfo={setEquipmentInfo} /> */}
+            </div>
         </React.Fragment >
     );
 }

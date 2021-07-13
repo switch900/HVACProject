@@ -5,9 +5,14 @@ import './EditEquipment.css'
 
 const EditEquipment = ({ match }) => {
 
-    const id = match.params.equipmentId;
+    const id = match.params.id;
 
-    const [name, setName] = useState('');
+    const [location, setLocation] = useState(
+        {
+            locationId: 0,
+            locationName: ""
+        }
+    );
     const [locations, setLocations] = useState([]);
     const [equipment, setEquipment] = useState(
         {
@@ -18,14 +23,23 @@ const EditEquipment = ({ match }) => {
     );
 
     useEffect(() => {
-        const addLocations = async () => {
+        const addEquipment = async () => {
             const result = await fetch(`https://localhost:44349/api/HVACEquipments/` + id);
             const body = await result.json();
             setEquipment(body);
 
         };
         addEquipment();
-    }, []);
+    }, [id]);
+
+    useEffect(() => {
+        const addLocation = async () => {
+            const result = await fetch(`https://localhost:44349/api/HVACEquipmentLocations/` + equipment.locationId);
+            const body = await result.json();
+            setLocation(body);
+        };
+        addLocation();
+    }, [equipment.locationId]);
 
     useEffect(() => {
         const addLocations = async () => {
@@ -37,17 +51,22 @@ const EditEquipment = ({ match }) => {
         addLocations();
     }, []);
 
+    const myChangeHandler = event => {
+        const { name, value } = event.target
+        setEquipment({ ...equipment, [name]: value })
+    }
 
     const onchangeSelect = (item) => {
-        setEquipment(item);
+        setLocation(item);
     };
 
     const addEquipment = async () => {
-        const result = await fetch(`https://localhost:44349/api/HVACEquipments` + id, {
+        const result = await fetch(`https://localhost:44349/api/HVACEquipments/` + id, {
             method: 'put',
             body: JSON.stringify({
-                name: name,
-                locationId: equipment.equipmentId
+                equipmentId: equipment.equipmentId,
+                name: equipment.name,
+                locationId: location.locationId
             }),
             headers: {
                 'Accept': 'application/json',
@@ -65,17 +84,23 @@ const EditEquipment = ({ match }) => {
             <form>
                 <div className="form-group">
                     <p>Name:</p>
-                    <input className="form-control" type="text" placeholder="Name"
-                        value={name} onChange={(event) => setName(event.target.value)} />
+                    <input
+                        className="form-control"
+                        type="text"
+                        defaultValue={equipment.name}
+                        name="name"
+                        onChange={myChangeHandler} />
                     <p>Location:</p>
                     <Select
-                        // value={equipment}
+                        placeholder={location.locationName}
+                        defaultValue={location.locationName}
                         onChange={onchangeSelect}
+                        name="locationName"
                         options={locations}
                         getOptionLabel={({ locationName }) => locationName}
                     />
                 </div>
-                <button onClick={() => addEquipment()} className="btn btn-success" >Add</button>
+                <button onClick={() => addEquipment()} className="btn btn-success" >Save</button>
             </form>
         </div>
     </React.Fragment >

@@ -1,52 +1,48 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import Select from 'react-select';
 import './EditCustomer.css'
 
 const EditCustomer = ({ match }) => {
 
-    const id = match.params.customerId;
+    const id = match.params.id;
 
-    const [companyName, setCompanyName] = useState('');
-    const [contactName, setContactName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [address, setAddress] = useState('');
     const [customer, setCustomer] = useState(
         {
-            locationId: 0,
-            locationName: '',
-            address: '',
-            city: '',
-            province: '',
-            postalCode: ''
+            customerId: 0,
+            companyName: '',
+            contactName: '',
+            email: '',
+            phoneNumber: '',
+            address: ''
         }
     );
 
     useEffect(() => {
-        const addLocations = async () => {
-            const result = await fetch(`https://localhost:44349/api/HVACCustomers` + id);
+        const addCustomer = async () => {
+            const result = await fetch(`https://localhost:44349/api/HVACCustomers/${id}`);
             const body = await result.json();
             setCustomer(body);
 
         };
-        addLocations();
-    }, []);
+        addCustomer();
+    }, [id]);
 
 
-    const onchangeSelect = (item) => {
-        setCustomer(item);
-    };
+    const myChangeHandler = event => {
+        const { name, value } = event.target
+        setCustomer({ ...customer, [name]: value })
+    }
 
-    const addCustomer = async () => {
-        const result = await fetch(`https://localhost:44349/api/HVACCustomers`, {
+    const updateCustomer = async () => {
+        const result = await fetch(`https://localhost:44349/api/HVACCustomers/${id}`, {
             method: 'put',
             body: JSON.stringify({
-                companyName: companyName,
-                contactName: contactName,
-                email: email,
-                phoneNumber: phoneNumber,
-                address: address
+                customerId: customer.customerId,
+                companyName: customer.companyName,
+                contactName: customer.contactName,
+                email: customer.email,
+                phoneNumber: customer.phoneNumber,
+                address: customer.address
             }),
             headers: {
                 'Accept': 'application/json',
@@ -63,23 +59,41 @@ const EditCustomer = ({ match }) => {
             <form>
                 <div className="form-group">
                     <p>Company Name:</p>
-                    <input className="form-control" type="text" placeholder="Company Name"
-                        value={companyName} onChange={(event) => setCompanyName(event.target.value)} />
+                    <input
+                        className="form-control"
+                        type="text"
+                        name="companyName"
+                        defaultValue={customer.companyName}
+                        onChange={myChangeHandler} />
                     <p>Contact Name:</p>
-                    <input className="form-control" type="text" placeholder="Contact Name"
-                        value={contactName} onChange={(event) => setContactName(event.target.value)} />
+                    <input
+                        className="form-control"
+                        type="text"
+                        name="contactName"
+                        defaultValue={customer.contactName}
+                        onChange={myChangeHandler} />
                     <p>Email:</p>
-                    <input className="form-control" type="text" placeholder="Email"
-                        value={email} onChange={(event) => setEmail(event.target.value)} />
+                    <input
+                        className="form-control"
+                        type="text"
+                        defaultValue={customer.email}
+                        onChange={myChangeHandler} />
                     <p>Phone Number:</p>
-                    <input className="form-control" type="text" placeholder="Phone Number"
-                        value={phoneNumber} onChange={(event) => setPhoneNumber(event.target.value)} />
+                    <input
+                        className="form-control"
+                        type="text"
+                        name="phoneNumber"
+                        defaultValue={customer.phoneNumber}
+                        onChange={myChangeHandler} />
                     <p>Address:</p>
-                    <input className="form-control" type="text" placeholder="Address"
-                        value={address} onChange={(event) => setAddress(event.target.value)} />
-
+                    <input
+                        className="form-control"
+                        type="text"
+                        name="address"
+                        defaultValue={customer.address}
+                        onChange={myChangeHandler} />
                 </div>
-                <button onClick={() => addCustomer()} className="btn btn-success" >Save</button>
+                <button onClick={() => updateCustomer()} className="btn btn-success" >Save</button>
             </form>
         </div>
     </React.Fragment >

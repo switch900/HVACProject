@@ -3,7 +3,7 @@ import React from 'react';
 import NotFoundPage from '../../NotFoundPage';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import EditEquipment from '../EditEquipment/EditEquipment';
+// import EditEquipment from '../EditEquipment/EditEquipment';
 import { Link } from 'react-router-dom';
 
 import './EquipmentDetail.css';
@@ -81,24 +81,24 @@ const EquipmentDetail = ({ match }) => {
 
     }
 
-    const myChangeHandler = event => {
-        const { name, value } = event.target
-        setEquipmentInfo({ ...equipmentInfo, [name]: value })
-    }
+    // const myChangeHandler = event => {
+    //     const { name, value } = event.target
+    //     setEquipmentInfo({ ...equipmentInfo, [name]: value })
+    // }
 
-    const mySubmitHandler = event => {
-        event.preventDefault();
-        handleSaveItem();
-        // window.location.href = '/equipmentDetail/' + localStorage.getItem('id');
-    }
+    // const mySubmitHandler = event => {
+    //     event.preventDefault();
+    //     handleSaveItem();
+    //     // window.location.href = '/equipmentDetail/' + localStorage.getItem('id');
+    // }
 
-    const handleEditClick = () => {
-        setIsEditable(true)
-    }
+    // const handleEditClick = () => {
+    //     setIsEditable(true)
+    // }
 
     return (
         <React.Fragment>
-            <div className="DetailPane">
+            <div className="detailPageContainer">
                 <h4 className="text-info">{equipmentInfo.equipmentId}. {equipmentInfo.name}</h4>
 
                 {isEditable

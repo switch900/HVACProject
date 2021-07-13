@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import Select from 'react-select';
 import './EditLocation.css';
 
 const EditLocation = ({ match }) => {
 
-    const id = match.params.locationId;
+    const id = match.params.id;
 
-    const [name, setName] = useState('');
-    const [locations, setLocations] = useState([]);
     const [location, setLocation] = useState(
         {
             locationId: 0,
@@ -22,25 +19,28 @@ const EditLocation = ({ match }) => {
 
     useEffect(() => {
         const addLocations = async () => {
-            const result = await fetch(`https://localhost:44349/api/HVACEquipmentLocations` + id);
+            const result = await fetch(`https://localhost:44349/api/HVACEquipmentLocations/` + id);
             const body = await result.json();
             setLocation(body);
-
         };
         addLocations();
-    }, []);
+    }, [id]);
 
+    const myChangeHandler = event => {
+        const { name, value } = event.target
+        setLocation({ ...location, [name]: value })
+    }
 
-    const onchangeSelect = (item) => {
-        setLocation(item);
-    };
-
-    const addEquipment = async () => {
-        const result = await fetch(`https://localhost:44349/api/HVACEquipmentLocations`, {
+    const updateLocation = async () => {
+        const result = await fetch(`https://localhost:44349/api/HVACEquipmentLocations/` + id, {
             method: 'put',
             body: JSON.stringify({
-                name: name,
-                locationId: location.locationId
+                locationId: location.locationId,
+                locationName: location.locationName,
+                address: location.address,
+                city: location.city,
+                province: location.province,
+                postalCode: location.postalCode
             }),
             headers: {
                 'Accept': 'application/json',
@@ -48,7 +48,6 @@ const EditLocation = ({ match }) => {
             }
         });
         const body = await result.json();
-
         console.log(body);
     }
 
@@ -56,18 +55,43 @@ const EditLocation = ({ match }) => {
         <div className="panel panel-default">
             <form>
                 <div className="form-group">
-                    <p>Name:</p>
-                    <input className="form-control" type="text" placeholder="Name"
-                        value={name} onChange={(event) => setName(event.target.value)} />
-                    <p>Location:</p>
-                    <Select
-                        value={location}
-                        onChange={onchangeSelect}
-                        options={locations}
-                        getOptionLabel={({ locationName }) => locationName}
-                    />
+                    <p>Location Name:</p>
+                    <input
+                        className="form-control"
+                        type="text"
+                        name="locationName"
+                        defaultValue={location.locationName}
+                        onChange={myChangeHandler} />
+                    <p>Address:</p>
+                    <input
+                        className="form-control"
+                        type="text"
+                        name="address"
+                        defaultValue={location.address}
+                        onChange={myChangeHandler} />
+                    <p>City:</p>
+                    <input
+                        className="form-control"
+                        type="text"
+                        name="city"
+                        defaultValue={location.city}
+                        onChange={myChangeHandler} />
+                    <p>Province:</p>
+                    <input
+                        className="form-control"
+                        type="text"
+                        name="province"
+                        defaultValue={location.province}
+                        onChange={myChangeHandler} />
+                    <p>Postal Code:</p>
+                    <input
+                        className="form-control"
+                        type="text"
+                        name="postalCode"
+                        defaultValue={location.postalCode}
+                        onChange={myChangeHandler} />
                 </div>
-                <button onClick={() => addEquipment()} className="btn btn-success" >Add</button>
+                <button onClick={() => updateLocation()} className="btn btn-success" >Save</button>
             </form>
         </div>
     </React.Fragment >

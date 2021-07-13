@@ -1,46 +1,47 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import Select from 'react-select';
 import './EditEmployee.css'
 
 const EditEmployee = ({ match }) => {
 
-    const id = match.params.employeeId;
+    const id = match.params.id;
 
-    const [name, setName] = useState('');
-    const [employees, setEmployees] = useState([]);
     const [employee, setEmployee] = useState(
         {
-            locationId: 0,
-            locationName: '',
-            address: '',
-            city: '',
-            province: '',
-            postalCode: ''
+            employeeId: 0,
+            firstName: '',
+            lastName: '',
+            email: '',
+            phoneNumber: '',
+            accessLevel: ''
         }
     );
 
     useEffect(() => {
-        const addLocations = async () => {
-            const result = await fetch(`https://localhost:44349/api/employees` + id);
+        const fetchData = async () => {
+            const result = await fetch(`https://localhost:44349/api/employees/${id}`);
             const body = await result.json();
             setEmployee(body);
-
         };
-        addEmployee();
-    }, []);
+        fetchData();
+    }, [id]);
 
+    const myChangeHandler = event => {
+        const { name, value } = event.target
+        setEmployee({ ...employee, [name]: value })
+    }
 
-    const onchangeSelect = (item) => {
-        setEmployee(item);
-    };
-
-    const addEmployee = async () => {
-        const result = await fetch(`https://localhost:44349/api/employees`, {
+    const updateEmployee = async () => {
+        const url = `https://localhost:44349/api/employees/` + id;
+        const result = await fetch(url, {
             method: 'put',
             body: JSON.stringify({
-                name: name,
-                locationId: employee.locationId
+                employeeId: employee.employeeId,
+                firstName: employee.firstName,
+                lastName: employee.lastName,
+                email: employee.email,
+                phoneNumber: employee.phoneNumber,
+                accessLevel: employee.accessLevel
             }),
             headers: {
                 'Accept': 'application/json',
@@ -48,26 +49,53 @@ const EditEmployee = ({ match }) => {
             }
         });
         const body = await result.json();
-
         console.log(body);
     }
 
     return (<React.Fragment>
         <div className="panel panel-default">
+            <h1>{employee.firstName} {employee.lastName}</h1>
             <form>
                 <div className="form-group">
-                    <p>Name:</p>
-                    <input className="form-control" type="text" placeholder="Name"
-                        value={name} onChange={(event) => setName(event.target.value)} />
-                    <p>Location:</p>
-                    <Select
-                        value={employee}
-                        onChange={onchangeSelect}
-                        options={employees}
-                        getOptionLabel={({ locationName }) => locationName}
+                    <p>First Name:</p>
+                    <input
+                        className="form-control"
+                        type="text"
+                        name="firstName"
+                        defaultValue={employee.firstName}
+                        onChange={myChangeHandler} />
+                    <p>Last Name:</p>
+                    <input
+                        className="form-control"
+                        type="text"
+                        name="lastName"
+                        defaultValue={employee.lastName}
+                        onChange={myChangeHandler} />
+                    <p>Email:</p>
+                    <input
+                        className="form-control"
+                        type="text"
+                        name="email"
+                        defaultValue={employee.email}
+                        onChange={myChangeHandler} />
+                    <p>Phone Number:</p>
+                    <input
+                        className="form-control"
+                        type="text"
+                        name="phoneNumber"
+                        defaultValue={employee.phoneNumber}
+                        onChange={myChangeHandler} />
+                    <p>Access Level:</p>
+                    <input
+                        type="text"
+                        defaultValue={employee.accessLevel}
+                        className="form-control"
+                        name="accessLevel"
+                        onChange={myChangeHandler}
                     />
+
                 </div>
-                <button onClick={() => addEmployee()} className="btn btn-success" >Add</button>
+                <button onClick={() => updateEmployee()} className="btn btn-success" >Save</button>
             </form>
         </div>
     </React.Fragment >
