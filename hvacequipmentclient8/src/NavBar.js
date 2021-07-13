@@ -15,7 +15,7 @@ export class NavBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userName: 'Andrew'
+            userName: ''
         };
     }
 
@@ -80,9 +80,9 @@ export class NavBar extends Component {
 
                         <NavItem>
                             {this.state.userName === '' ? (
-                                <NavLink href="/login">Log In</NavLink>
+                                <NavLink href="/login"><div onClick={() => this.setState({ userName: 'Andrew' })}>Log In</div></NavLink>
                             ) : (
-                                <NavLink href="/login">Hello {this.state.userName}!</NavLink>
+                                <NavLink><div onClick={() => this.setState({ userName: '' })}>Hello {this.state.userName}!</div></NavLink>
                             )}
                         </NavItem>
                     </ul>
