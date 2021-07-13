@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/hvacequipmentclient8/static/css/main.23b46d62.chunk.css",
+    "main.js": "/hvacequipmentclient8/static/js/main.4de2edea.chunk.js",
+    "main.js.map": "/hvacequipmentclient8/static/js/main.4de2edea.chunk.js.map",
+    "runtime-main.js": "/hvacequipmentclient8/static/js/runtime-main.73c0b9dd.js",
+    "runtime-main.js.map": "/hvacequipmentclient8/static/js/runtime-main.73c0b9dd.js.map",
+    "static/css/2.2bb1fb7f.chunk.css": "/hvacequipmentclient8/static/css/2.2bb1fb7f.chunk.css",
+    "static/js/2.a3a7ec47.chunk.js": "/hvacequipmentclient8/static/js/2.a3a7ec47.chunk.js",
+    "static/js/2.a3a7ec47.chunk.js.map": "/hvacequipmentclient8/static/js/2.a3a7ec47.chunk.js.map",
+    "static/js/3.5ba999e2.chunk.js": "/hvacequipmentclient8/static/js/3.5ba999e2.chunk.js",
+    "static/js/3.5ba999e2.chunk.js.map": "/hvacequipmentclient8/static/js/3.5ba999e2.chunk.js.map",
+    "index.html": "/hvacequipmentclient8/index.html",
+    "static/css/2.2bb1fb7f.chunk.css.map": "/hvacequipmentclient8/static/css/2.2bb1fb7f.chunk.css.map",
+    "static/css/main.23b46d62.chunk.css.map": "/hvacequipmentclient8/static/css/main.23b46d62.chunk.css.map",
+    "static/js/2.a3a7ec47.chunk.js.LICENSE.txt": "/hvacequipmentclient8/static/js/2.a3a7ec47.chunk.js.LICENSE.txt",
+    "static/media/logo.04fe6b7e.png": "/hvacequipmentclient8/static/media/logo.04fe6b7e.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.73c0b9dd.js",
+    "static/css/2.2bb1fb7f.chunk.css",
+    "static/js/2.a3a7ec47.chunk.js",
+    "static/css/main.23b46d62.chunk.css",
+    "static/js/main.4de2edea.chunk.js"
+  ]
+}
