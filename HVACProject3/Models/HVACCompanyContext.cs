@@ -22,6 +22,9 @@ namespace HVACProject3.Models
            new { Id = "1", Name = "Admin", NormalizedName = "ADMIN" },
            new { Id = "2", Name = "Technician", NormalizedName = "TECHNICIAN" }
        );
+            builder.Entity<IdentityUserLogin<string>>().HasNoKey();
+            builder.Entity<IdentityUserRole<string>>().HasNoKey();
+            builder.Entity<IdentityUserToken<string>>().HasNoKey();
 
 
             //builder.Seed();
