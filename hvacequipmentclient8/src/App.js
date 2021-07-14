@@ -30,6 +30,7 @@ import EditEquipment from './pages/Equipment/EditEquipment/EditEquipment';
 import EditCustomer from './pages/Customers/EditCustomer/EditCustomer';
 import EditLocation from './pages/Locations/EditLocation/EditLocation';
 import EditEmployee from './pages/Employees/EditEmployee/EditEmployee';
+import Footer from './Footer';
 
 
 function App() {
@@ -61,6 +62,7 @@ function App() {
 
           <Route component={NotFoundPage} />
         </Switch>
+        <Footer />
       </div>
     </Router>
   );

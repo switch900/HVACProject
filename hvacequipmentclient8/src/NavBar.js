@@ -9,7 +9,7 @@ import {
     DropdownToggle,
     DropdownMenu,
     DropdownItem
-} from 'reactstrap'
+} from 'reactstrap';
 
 export class NavBar extends Component {
     constructor(props) {
