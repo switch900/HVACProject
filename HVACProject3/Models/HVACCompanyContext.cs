@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using HVACProject3.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace HVACProject3.Models
 {
-    public class HVACCompanyContext : DbContext
+    public class HVACCompanyContext : IdentityDbContext<Employee, ApplicationRole, string>
     {
 
         public HVACCompanyContext(DbContextOptions<HVACCompanyContext> options)
@@ -17,6 +18,13 @@ namespace HVACProject3.Models
             builder.Entity<HVACEquipmentLocation>().Property(p => p.LocationId);
             builder.Entity<HVACCustomer>().Property(p => p.CustomerId);
             builder.Entity<Employee>().Property(p => p.EmployeeId);
+            builder.Entity<IdentityRole>().HasData(
+           new { Id = "1", Name = "Admin", NormalizedName = "ADMIN" },
+           new { Id = "2", Name = "Technician", NormalizedName = "TECHNICIAN" }
+       );
+            builder.Entity<IdentityUserLogin<string>>().HasNoKey();
+            builder.Entity<IdentityUserRole<string>>().HasNoKey();
+            builder.Entity<IdentityUserToken<string>>().HasNoKey();
 
 
             //builder.Seed();
@@ -26,9 +34,9 @@ namespace HVACProject3.Models
         public DbSet<HVACEquipment> HVACEquipments { get; set; }
         public DbSet<HVACEquipmentLocation> HVACEquipmentLocations { get; set; }
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<HVACProject3.Models.Account> Account { get; set; }
-        public DbSet<HVACProject3.Models.Owner> Owner { get; set; }
-        public DbSet<HVACProject3.Models.Employee> Employee { get; set; }
+        public DbSet<Account> Account { get; set; }
+        public DbSet<Owner> Owner { get; set; }
+        public DbSet<Employee> Employee { get; set; }
     }
 }
 

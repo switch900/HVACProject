@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace HVACProject3.Models
 {
-    public class Employee
+    public class Employee : IdentityUser
     {
         [Key]
         public int EmployeeId { get; set; }
@@ -11,5 +12,6 @@ namespace HVACProject3.Models
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string AccessLevel { get; set; }
+        public string Password { get; set; }
     }
 }
