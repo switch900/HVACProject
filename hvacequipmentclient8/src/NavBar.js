@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import logo from './images/logo.png';
 
 import {
-    NavItem,
+    // NavItem,
     NavLink,
     UncontrolledDropdown,
     DropdownToggle,
@@ -27,9 +27,12 @@ export class NavBar extends Component {
 
     render() {
         return (
-            <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
+            <nav className="navbar fixed-top navbar-expand-sm bg-dark navbar-dark">
                 <a className="navbar-brand" href="/"><img src={logo} width="128" className="d-inline-block align-top" alt="" /></a>
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse" id="collapsibleNavbar">
                     <ul className="navbar-nav ml-auto">
 
                         <UncontrolledDropdown nav inNavbar>
@@ -79,27 +82,18 @@ export class NavBar extends Component {
                                 {/* <DropdownItem href="/equipment-delete">Delete Equipment</DropdownItem> */}
                             </DropdownMenu>
                         </UncontrolledDropdown>
-
-                        <NavItem>
-                            <Link className="nav-link" to="/about">About</Link>
-                        </NavItem>
-
-                        <NavItem>
-                            {this.state.userName === '' ? (
-                                <NavLink href="/login"><div onClick={() => this.setState({ userName: 'Andrew' })}>Log In</div></NavLink>
-                            ) : (
-                                <UncontrolledDropdown nav inNavbar>
-                                    <DropdownToggle nav caret>
-                                        Hello {this.state.userName}!
-                                    </DropdownToggle>
-                                    <DropdownMenu>
-                                        <DropdownItem onClick={() => this.setState({ userName: '' })}>Log Out</DropdownItem>
-                                    </DropdownMenu>
-                                </UncontrolledDropdown>
-
-                                // <NavLink><div onClick={() => this.setState({ userName: '' })}>Hello {this.state.userName}!</div></NavLink>
-                            )}
-                        </NavItem>
+                        {this.state.userName === '' ? (
+                            <NavLink href="/"><div onClick={() => this.setState({ userName: 'Andrew' })}>Log In</div></NavLink>
+                        ) : (
+                            <UncontrolledDropdown nav inNavbar>
+                                <DropdownToggle nav caret>
+                                    Hello {this.state.userName}!
+                                </DropdownToggle>
+                                <DropdownMenu>
+                                    <DropdownItem href="/login" onClick={() => this.setState({ userName: '' })}>Log Out</DropdownItem>
+                                </DropdownMenu>
+                            </UncontrolledDropdown>
+                        )}
                     </ul>
                 </div>
             </nav>

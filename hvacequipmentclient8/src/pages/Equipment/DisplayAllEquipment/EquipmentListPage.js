@@ -1,9 +1,12 @@
 import React from 'react';
 import EquipmentList from '../../../components/EquipmentList';
+import './App.css';
 
 const EquipmentListPage = () => (
     <React.Fragment>
-        <h1>Display All Equipment</h1>
+        <div className="listPageContainer">
+            <h1>Display All Equipment</h1>
+        </div>
         <EquipmentList />
     </React.Fragment>
 );
