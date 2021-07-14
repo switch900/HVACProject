@@ -1,6 +1,4 @@
-import React from 'react';
 
-const AddEmployee = () => (
-    <h1>Add Employee</h1>
-);
-export default AddEmployee;
+h1{
+    margin-top:100px;
+  }

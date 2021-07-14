@@ -1,6 +1,6 @@
 import React from 'react';
 import EquipmentList from '../../../components/EquipmentList';
-import './App.css';
+import './EquipmentListPage.css';
 
 const EquipmentListPage = () => (
     <React.Fragment>

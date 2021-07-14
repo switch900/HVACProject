@@ -10,6 +10,7 @@ import {
   Switch
 } from 'react-router-dom';
 import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage/ContactPage';
 import React from 'react';
 import NavBar from './NavBar';
 import NotFoundPage from './pages/NotFoundPage';
@@ -42,6 +43,7 @@ function App() {
         <Switch>
           <Route path="/" component={HomePage} exact />
           <Route path="/about" component={AboutPage} exact />
+          <Route path="/contact" component={ContactPage} exact />
           <Route path="/displayAllEquipment" component={EquipmentListPage} exact />
           <Route path="/addEquipment" component={AddEquipment} exact />
           <Route path="/displayAllLocations" component={DisplayAllLocation} exact />
