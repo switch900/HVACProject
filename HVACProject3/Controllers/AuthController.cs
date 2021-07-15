@@ -1,4 +1,6 @@
-﻿using HVACProject3.ViewModels;
+﻿using HVACProject3.Models;
+using HVACProject3.ViewModels;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,14 +16,15 @@ using System.Threading.Tasks;
 
 namespace HVACProject3.Controllers
 {
-    [Route("api/[controller]")]
+    [EnableCors("HVACEquipmentPolicy")]
+    [Route("[controller]")]
     [ApiController]
     public class AuthController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<Employee> _userManager;
         private readonly IConfiguration _configuration;
 
-        public AuthController(UserManager<IdentityUser> userManager, IConfiguration configuration)
+        public AuthController(UserManager<Employee> userManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _configuration = configuration;
@@ -31,16 +34,17 @@ namespace HVACProject3.Controllers
         [HttpPost]
         public async Task<ActionResult> InsertUser([FromBody] RegisterViewModel model)
         {
-            var user = new IdentityUser
+            var user = new Employee
             {
                 Email = model.Email,
                 UserName = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString()
             };
+            Console.WriteLine(user);
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, "Customer");
+                await _userManager.AddToRoleAsync(user, "Technician");
             }
             return Ok(new { Username = user.UserName });
         }
