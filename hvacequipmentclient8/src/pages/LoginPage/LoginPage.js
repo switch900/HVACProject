@@ -62,8 +62,11 @@ export class LoginPage extends React.Component {
 
     render() {
         return (
+
             <form onSubmit={this.mySubmitHandler}>
+
                 <div className="form-group">
+                    <h1>Log In</h1>
                     <label htmlFor="usr">User Name:</label>
                     <input
                         type='text'
