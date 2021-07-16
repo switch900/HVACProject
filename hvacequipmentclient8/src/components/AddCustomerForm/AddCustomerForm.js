@@ -29,24 +29,31 @@ const AddCustomerForm = ({ setCustomerInfo }) => {
 
     return (<React.Fragment>
         <div className="panel panel-default">
-            <form>
+             <form>
                 <div className="form-group">
-                    <p>Company Name:</p>
+                    <label htmlFor="companyName">CompanyName:</label>
                     <input className="form-control" type="text" placeholder="Company Name"
                         value={companyName} onChange={(event) => setCompanyName(event.target.value)} />
-                    <p>Contact Name:</p>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="contactName">Contact Name:</label>
                     <input className="form-control" type="text" placeholder="Contact Name"
                         value={contactName} onChange={(event) => setContactName(event.target.value)} />
-                    <p>Email:</p>
+                </div>
+                <div className="form-group">
+                    <label>Email:</label>
                     <input className="form-control" type="text" placeholder="Email"
                         value={email} onChange={(event) => setEmail(event.target.value)} />
-                    <p>Phone Number:</p>
+                </div>
+                <div className="form-group">
+                    <label>Phone Number:</label>
                     <input className="form-control" type="text" placeholder="Phone Number"
                         value={phoneNumber} onChange={(event) => setPhoneNumber(event.target.value)} />
-                    <p>Address:</p>
+                </div>
+                <div className="form-group">
+                    <label>Address:</label>
                     <input className="form-control" type="text" placeholder="Address"
                         value={address} onChange={(event) => setAddress(event.target.value)} />
-
                 </div>
                 <button onClick={() => addCustomer()} className="btn btn-success" >Add</button>
             </form>
