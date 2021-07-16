@@ -32,12 +32,21 @@ namespace HVACProject3.Controllers
 
         [Route("register")]
         [HttpPost]
-        public async Task<ActionResult> InsertUser([FromBody] RegisterViewModel model)
+        public async Task<ActionResult> InsertUser([FromBody] Employee model)
         {
             var user = new Employee
             {
                 Email = model.Email,
-                UserName = model.Email,
+                UserName = model.UserName,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                BirthDate = model.BirthDate,
+                Street = model.Street,
+                City = model.City,
+                Province = model.Province,
+                PostalCode = model.PostalCode,
+                Country = model.Country,
+                DateCreated = model.DateCreated,
                 SecurityStamp = Guid.NewGuid().ToString()
             };
             Console.WriteLine(user);

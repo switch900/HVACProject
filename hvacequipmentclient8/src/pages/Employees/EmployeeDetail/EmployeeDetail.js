@@ -58,6 +58,7 @@ const EmployeeDetail = ({ match }) => {
                         </tr>
                     </tbody>
                 </table>
+
             </div>
         </React.Fragment >
     );
