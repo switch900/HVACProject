@@ -1,5 +1,4 @@
 .form-group {
-    margin-top:100px;
     margin-bottom: 1rem;
     margin-left: 10%;
     width: 80%;
@@ -20,8 +19,6 @@ input.btn.btn-primary {
   }
 
 h1{
-    padding:10px;
-    margin-left: 5%;
     margin-top:100px;
 }
 
