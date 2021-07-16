@@ -43,6 +43,15 @@
     margin-top:100px;
 }
 
+.panel.panel-default {
+  margin-top:100px;
+  margin-bottom: 100px;
+}
+
+.footerContainer {
+  margin-top: 100px;
+}
+
 .footerStyle {
   text-align: center;
 }
