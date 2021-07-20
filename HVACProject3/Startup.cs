@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using HVACProject3.Data;
 
 namespace HVACProject3
 {
@@ -24,17 +25,17 @@ namespace HVACProject3
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<HVACCompanyContext>(options =>
-                                               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddControllers();
-
-            services.AddCors(o => o.AddPolicy("HVACEquipmentPolicy", builder => {
+            services.AddCors(o => o.AddPolicy("HVACEquipmentPolicy", builder =>
+            {
                 builder.AllowAnyOrigin()
                        .AllowAnyMethod()
                        .AllowAnyHeader();
             }));
-           
-            services.AddIdentity<Employee, IdentityRole>(
+
+            services.AddDbContext<HVACCompanyContext>(options =>
+                                               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDefaultIdentity<Employee>(
                 option =>
                 {
                     option.Password.RequireDigit = false;
@@ -43,14 +44,18 @@ namespace HVACProject3
                     option.Password.RequireUppercase = false;
                     option.Password.RequireLowercase = false;
                 }
-            ).AddEntityFrameworkStores<HVACCompanyContext>()
-            .AddDefaultTokenProviders();
+            )
+                .AddRoles<ApplicationRole>()
+                .AddEntityFrameworkStores<HVACCompanyContext>()
+                .AddDefaultTokenProviders();
 
-            services.AddAuthentication(option => {
+            services.AddAuthentication(option =>
+            {
                 option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 option.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options => {
+            }).AddJwtBearer(options =>
+            {
                 options.SaveToken = true;
                 options.RequireHttpsMetadata = true;
                 options.TokenValidationParameters = new TokenValidationParameters()
@@ -63,17 +68,17 @@ namespace HVACProject3
                 };
             });
 
+            services.AddControllers();
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(
             IApplicationBuilder app,
-            IWebHostEnvironment env
-            // Microsoft.AspNetCore.Hosting.IHostingEnvironment env,
-            //   ApplicationDbContext context,
-            //   RoleManager<ApplicationRole> roleManager,
-            //   UserManager<ApplicationUser> userManager
+            IWebHostEnvironment env,
+            HVACCompanyContext context,
+            RoleManager<ApplicationRole> roleManager,
+            UserManager<Employee> userManager
             )
         {
             if (env.IsDevelopment())
@@ -94,6 +99,9 @@ namespace HVACProject3
             {
                 endpoints.MapControllers();
             });
+
+
+          DummyData.Initialize(context, userManager, roleManager).Wait();
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using HVACProject3.Models;
 using HVACProject3.ViewModels;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -22,12 +21,14 @@ namespace HVACProject3.Controllers
     public class AuthController : Controller
     {
         private readonly UserManager<Employee> _userManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly IConfiguration _configuration;
 
-        public AuthController(UserManager<Employee> userManager, IConfiguration configuration)
+        public AuthController(UserManager<Employee> userManager, RoleManager<ApplicationRole> roleManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _configuration = configuration;
+            _roleManager = roleManager;
         }
 
         [Route("register")]
@@ -49,11 +50,12 @@ namespace HVACProject3.Controllers
                 DateCreated = model.DateCreated,
                 SecurityStamp = Guid.NewGuid().ToString()
             };
-            Console.WriteLine(user);
+
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, "Technician");
+                var role = "Technician";
+                await _userManager.AddToRoleAsync(user, role);
             }
             return Ok(new { Username = user.UserName });
         }
@@ -61,34 +63,45 @@ namespace HVACProject3.Controllers
         [Route("login")]
         [HttpPost]
         public async Task<ActionResult> Login([FromBody] LoginViewModel model)
-        {
-            var user = await _userManager.FindByNameAsync(model.Username);
-            if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
-                var claim = new[] {
-        new Claim(JwtRegisteredClaimNames.Sub, user.UserName)
-      };
-                var signinKey = new SymmetricSecurityKey(
-                  Encoding.UTF8.GetBytes(_configuration["Jwt:SigningKey"]));
+                var user = await _userManager.FindByNameAsync(model.Username);
+                var role = await _roleManager.FindByIdAsync(user.Id);
 
-                int expiryInMinutes = Convert.ToInt32(_configuration["Jwt:ExpiryInMinutes"]);
+                if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+                {
+                    var claim = new List<Claim> {
+                    new Claim(JwtRegisteredClaimNames.Sub, user.UserName)
+                };
 
-                var token = new JwtSecurityToken(
-                  issuer: _configuration["Jwt:Site"],
-                  audience: _configuration["Jwt:Site"],
-                  expires: DateTime.UtcNow.AddMinutes(expiryInMinutes),
-                  signingCredentials: new SigningCredentials(signinKey, SecurityAlgorithms.HmacSha256)
-                );
+                    var userRoles = await _userManager.GetRolesAsync(user);
 
-                return Ok(
-                  new
-                  {
-                      token = new JwtSecurityTokenHandler().WriteToken(token),
-                      expiration = token.ValidTo
-                  });
+                    claim.Add(new Claim("roles", string.Join(",", userRoles.ToArray())));
+                    claim.Add(new Claim("users", string.Join(",", user.Id)));
+
+                    var signinKey = new SymmetricSecurityKey(
+                      Encoding.UTF8.GetBytes(_configuration["Jwt:SigningKey"]));
+
+                    int expiryInMinutes = Convert.ToInt32(_configuration["Jwt:ExpiryInMinutes"]);
+
+                    var token = new JwtSecurityToken(
+                      issuer: _configuration["Jwt:Site"],
+                      audience: _configuration["Jwt:Site"],
+                      claims: claim,
+                      expires: DateTime.UtcNow.AddMinutes(expiryInMinutes),
+                      signingCredentials: new SigningCredentials(signinKey, SecurityAlgorithms.HmacSha256)
+                    );
+
+                    return Ok(
+                      new
+                      {
+                          token = new JwtSecurityTokenHandler().WriteToken(token),
+                          expiration = token.ValidTo,
+                          credential = token.Claims.ElementAt(1).Value,
+                          id = token.Claims.ElementAt(2).Value
+                      });
+                }
+                return Unauthorized();
             }
-            return Unauthorized();
         }
-    }
 
 }

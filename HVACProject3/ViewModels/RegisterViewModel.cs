@@ -6,6 +6,7 @@ namespace HVACProject3.ViewModels
     {
         [Required]
         [EmailAddress]
+        [Key]
         public string Email { get; set; }
 
         [Required]
