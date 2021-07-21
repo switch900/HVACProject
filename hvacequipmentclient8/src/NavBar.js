@@ -15,15 +15,20 @@ export class NavBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userName: 'Andrew'
+            userName: ''
         };
     }
 
-    // componentDidMount() {
-    //     this.setState = {
-    //         userName: ''
-    //     };
-    // }
+    login() {
+        const id = localStorage.getItem('id')
+        const fetchData = async () => {
+            const result = await fetch(`https://localhost:44349/api/employees/${id}`);
+            const body = await result.json();
+            this.state.userName = body.username;
+        };
+        fetchData();
+        // }, [id]);
+    }
 
     render() {
         return (
@@ -83,7 +88,7 @@ export class NavBar extends Component {
                             </DropdownMenu>
                         </UncontrolledDropdown>
                         {this.state.userName === '' ? (
-                            <NavLink href="/"><div onClick={() => this.setState({ userName: 'Andrew' })}>Log In</div></NavLink>
+                            <NavLink href="/login"><div onClick={() => this.setState({ userName: 'Login' })}>Log In</div></NavLink>
                         ) : (
                             <UncontrolledDropdown nav inNavbar>
                                 <DropdownToggle nav caret>

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HVACProject3.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Technician")]
     [Route("api/employees")]
     [EnableCors("HVACEquipmentPolicy")]
     [ApiController]

@@ -5,12 +5,21 @@ import { useHistory } from 'react-router-dom';
 import './ListStyle.css';
 import { Link } from 'react-router-dom';
 
-const EmployeeList = (exceptId) => {
+const EmployeeList = (match) => {
+    // const id = match.params.id;
     const [employeeInfo, setEmployeeInfo] = useState({});
 
     useEffect(() => {
+        const url = 'https://localhost:44349/api/employees';
+
         const fetchData = async () => {
-            const result = await fetch(`https://localhost:44349/api/employees`);
+            const result = await fetch(url, {
+                method: 'get',
+                headers: new Headers({
+                    "Accept": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem('token')
+                })
+            });
             const body = await result.json();
             setEmployeeInfo(body);
         }

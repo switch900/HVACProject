@@ -23,41 +23,41 @@ export class LoginPage extends React.Component {
     }
 
     userLogin() {
-        /*  fetch('https://santaapi20191123012550.azurewebsites.net/auth/login', {
-        // fetch('https://localhost:44367/auth/login', {
-             method: 'POST',
-             headers: {
-                 'Accept': 'application/json',
-                 'Content-Type': 'application/json'
-             },
-             body: JSON.stringify({
-                 Username: this.state.username,
-                 Password: this.state.password
-             })
-         })
-             .then(res => res.json()).then(res => {
-                 localStorage.setItem('token', res.token);
-                 localStorage.setItem('credentials', res.credential);
-                 localStorage.setItem('id', res.id);
- 
-                 if (res.token) {
-                     alert("Welcome to the Naughty or Nice list " + this.state.username);
-                     if (localStorage.getItem('credentials') === "Admin") {
-                         window.location.href = '/list';
-                     }
-                     else if (localStorage.getItem('credentials') === "Child") {
-                         window.location.href = '/detail/' + localStorage.getItem('id');
-                     }
-                     else {
-                         alert("Nothing Found");
-                     }
-                 }
-                 else {
-                     alert("Not a valid user or password");
-                 }
-             }, function (error) {
-                 console.log(error.message); //=> String
-             }) */
+        //fetch('https://santaapi20191123012550.azurewebsites.net/auth/login', {
+        fetch('https://localhost:44349/auth/login', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                Username: this.state.username,
+                Password: this.state.password
+            })
+        })
+            .then(res => res.json()).then(res => {
+                localStorage.setItem('token', res.token);
+                localStorage.setItem('credential', res.credential);
+                localStorage.setItem('id', res.id);
+
+                if (res.token) {
+                    alert("Welcome to the HVAC List " + this.state.username);
+                    if (localStorage.getItem('credential') === "Admin") {
+                        window.location.href = '/list';
+                    }
+                    else if (localStorage.getItem('credential') === "Technician") {
+                        window.location.href = '/displayAllEmployees';
+                    }
+                    else {
+                        alert("Nothing Found");
+                    }
+                }
+                else {
+                    alert("Not a valid user or password");
+                }
+            }, function (error) {
+                console.log(error.message); //=> String
+            })
     }
 
     render() {
