@@ -1,97 +1,72 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './LoginPage.css';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
-export class LoginPage extends React.Component {
+import { authenticationService } from '../../_services/authentication.service';
+
+class LoginPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            username: '',
-            password: '',
-        };
-    }
 
-    myChangeHandler = (event) => {
-        let nam = event.target.name;
-        let val = event.target.value;
-        this.setState({ [nam]: val });
-    }
-
-    mySubmitHandler = (event) => {
-        this.userLogin();
-        event.preventDefault();
-    }
-
-    userLogin() {
-        //fetch('https://santaapi20191123012550.azurewebsites.net/auth/login', {
-        fetch('https://localhost:44349/auth/login', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                Username: this.state.username,
-                Password: this.state.password
-            })
-        })
-            .then(res => res.json()).then(res => {
-                localStorage.setItem('token', res.token);
-                localStorage.setItem('credential', res.credential);
-                localStorage.setItem('id', res.id);
-
-                if (res.token) {
-                    alert("Welcome to the HVAC List " + this.state.username);
-                    if (localStorage.getItem('credential') === "Admin") {
-                        window.location.href = '/list';
-                    }
-                    else if (localStorage.getItem('credential') === "Technician") {
-                        window.location.href = '/displayAllEmployees';
-                    }
-                    else {
-                        alert("Nothing Found");
-                    }
-                }
-                else {
-                    alert("Not a valid user or password");
-                }
-            }, function (error) {
-                console.log(error.message); //=> String
-            })
+        // redirect to home if already logged in
+        if (authenticationService.currentUserValue) {
+            this.props.history.push('/');
+        }
     }
 
     render() {
         return (
-
-            <form onSubmit={this.mySubmitHandler}>
-
-                <div className="form-group">
-                    <h1>Log In</h1>
-                    <label htmlFor="usr">User Name:</label>
-                    <input
-                        type='text'
-                        className="form-control"
-                        name='username'
-                        onChange={this.myChangeHandler}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="pwd">Password:</label>
-                    <input
-                        type="password"
-                        name='password'
-                        className="form-control"
-                        autoComplete="password"
-                        onChange={this.myChangeHandler}
-                    />
-                </div>
-
-                <input className="btn btn-primary"
-                    type='submit'
-                    text='Login'
+            <div>
+                <h2>Login</h2>
+                <Formik
+                    initialValues={{
+                        username: '',
+                        password: ''
+                    }}
+                    validationSchema={Yup.object().shape({
+                        username: Yup.string().required('Username is required'),
+                        password: Yup.string().required('Password is required')
+                    })}
+                    onSubmit={({ username, password }, { setStatus, setSubmitting }) => {
+                        setStatus();
+                        authenticationService.login(username, password)
+                            .then(
+                                user => {
+                                    const { from } = this.props.location.state || { from: { pathname: "/" } };
+                                    this.props.history.push(from);
+                                },
+                                error => {
+                                    setSubmitting(false);
+                                    setStatus(error);
+                                }
+                            );
+                    }}
+                    render={({ errors, status, touched, isSubmitting }) => (
+                        <Form>
+                            <div className="form-group">
+                                <label htmlFor="username">Username</label>
+                                <Field name="username" type="text" className={'form-control' + (errors.username && touched.username ? ' is-invalid' : '')} />
+                                <ErrorMessage name="username" component="div" className="invalid-feedback" />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="password">Password</label>
+                                <Field name="password" type="password" className={'form-control' + (errors.password && touched.password ? ' is-invalid' : '')} />
+                                <ErrorMessage name="password" component="div" className="invalid-feedback" />
+                            </div>
+                            <div className="form-group">
+                                <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Login</button>
+                                {isSubmitting &&
+                                    <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" alt="" />
+                                }
+                            </div>
+                            {status &&
+                                <div className={'alert alert-danger'}>{status}</div>
+                            }
+                        </Form>
+                    )}
                 />
-            </form>
-        );
+            </div>
+        )
     }
 }
 

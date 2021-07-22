@@ -17,7 +17,7 @@ const EmployeeList = (match) => {
                 method: 'get',
                 headers: new Headers({
                     "Accept": "application/json",
-                    "Authorization": "Bearer " + localStorage.getItem('token')
+                    "Authorization": "Bearer " + localStorage.getItem('currentUser.token')
                 })
             });
             const body = await result.json();
