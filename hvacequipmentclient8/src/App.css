@@ -38,18 +38,12 @@
 }
 
 .AboutPageTextBox {
-    width: 80%;
-    margin-left: 10%;
     margin-top:100px;
 }
 
 .panel.panel-default {
   margin-top:100px;
   margin-bottom: 100px;
-}
-
-.footerContainer {
-  margin-top: 100px;
 }
 
 .footerStyle {
@@ -73,6 +67,32 @@
   font-weight: 500;
 }
 
+
+.container{
+  margin-top:0px;
+}
+
+.jumbotron{
+  margin-top:0px;
+  margin-bottom:0px;
+  height: 100vh;
+  padding: 0px;
+}
+
+@media (min-width: 576px)
+{
+.jumbotron {
+  padding: 4rem 2rem;
+  margin-bottom: 0px!important;
+}
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #3f586c;
+  border-color: #3f586c;
+}
+
 h1{
-  margin-top:100px;
+  text-align: center;
 }
