@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import './ListStyle.css';
 import { Link } from 'react-router-dom';
+import { authenticationService } from '../_services/authentication.service';
 
 const EmployeeList = (match) => {
     // const id = match.params.id;
@@ -13,11 +14,12 @@ const EmployeeList = (match) => {
         const url = 'https://localhost:44349/api/employees';
 
         const fetchData = async () => {
+            const currentUser = authenticationService.currentUserValue;
             const result = await fetch(url, {
                 method: 'get',
                 headers: new Headers({
                     "Accept": "application/json",
-                    "Authorization": "Bearer " + localStorage.getItem('currentUser.token')
+                    "Authorization": "Bearer " + currentUser.token
                 })
             });
             const body = await result.json();
@@ -32,23 +34,25 @@ const EmployeeList = (match) => {
     //     others = Object.values(employeeInfo).filter(p => p.employeeId !== exceptId.exceptId);
     // }
 
-    const handleRemoveItem = async (employeeId) => {
-        const url = 'https://localhost:44349/api/employees/' + employeeId;
+    const handleRemoveItem = async (Id) => {
+        const currentUser = authenticationService.currentUserValue;
+        const url = 'https://localhost:44349/api/employees/' + Id;
         fetch(url, {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + currentUser.token
             },
             body: null
         });
-        alert("you deleted employee ID# " + employeeId);
-        const tmp = others.filter(u => u.employeeId !== employeeId);
+        alert("you deleted employee ID# " + Id);
+        const tmp = others.filter(u => u.id !== Id);
         setEmployeeInfo(tmp);
     }
 
     const history = useHistory();
 
-    const handleOnClick = useCallback((id) => history.push(`/employeeDetail/${id}`), [history]);
+    const handleOnClick = useCallback((Id) => history.push(`/employeeDetail/${Id}`), [history]);
 
     return (
         <>
@@ -74,11 +78,9 @@ const EmployeeList = (match) => {
                     </thead>
                     <tbody>
                         {others.map((item, key) => (
-                            <tr key={item.employeeId}
-                                onClick={() => handleOnClick(item.employeeId)}
-                            >
-                                <td>
-                                    {item.employeeId}
+                            <tr key={item.id}>
+                                <td onClick={() => handleOnClick(item.id)}>
+                                    {item.id}
                                 </td>
                                 <td>
                                     {item.firstName}
@@ -99,7 +101,7 @@ const EmployeeList = (match) => {
                                     <button
                                         type="button"
                                         className="btn btn-danger"
-                                        onClick={() => handleRemoveItem(item.employeeId)}>
+                                        onClick={() => handleRemoveItem(item.id)}>
                                         Delete
                                     </button>
                                 </td>

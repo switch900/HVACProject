@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import QrReader from 'react-qr-reader'
 import { Link } from 'react-router-dom';
+import '../App.css';
 
 class QrContainer extends Component {
     constructor(props) {
@@ -36,13 +37,11 @@ class QrContainer extends Component {
         const camStyle = {
             display: 'flex',
             justifyContent: "center",
-            marginTop: '10px'
         }
 
         const textStyle = {
             fontSize: '30px',
             textAlign: 'center',
-            marginTop: '10px',
             display: "block"
         }
 

@@ -7,12 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HVACProject3.Models;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HVACProject3.Controllers
 {
     [Route("api/HVACCustomers")]
     [EnableCors("HVACEquipmentPolicy")]
     [ApiController]
+    [Authorize]
     public class HVACCustomersController : ControllerBase
     {
         private readonly HVACCompanyContext _context;

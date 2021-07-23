@@ -1,25 +1,30 @@
-.form-group {
-    margin-bottom: 1rem;
-    margin-left: 10%;
-    width: 80%;
-}
 
 input.btn.btn-primary {
     float: right;
     margin-right: 10%;
 }
 
-.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
-    padding-right: 0px;
-    padding-left: 0px;
-    margin-right: 0!important;
-    margin-left: 0!important;
-    width: 100%!important;
-    min-width: -webkit-fill-available;
-  }
 
-h1{
-    margin-top:100px;
+
+.loginFormContainer {
+    margin-top: 120px;
+}
+
+.jumbotron{
+    margin-top: 25px;
+    margin-bottom:0px;
+}
+
+.loginContainer {
+    margin-top: 50px;
+}
+
+@media (min-width: 576px)
+{
+.jumbotron {
+    padding: 4rem 2rem;
+    margin-bottom: 0px;
+}
 }
 
 .List{

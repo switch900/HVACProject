@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import './EmployeeDetail.css';
 import { Link } from 'react-router-dom';
+import { authenticationService } from '../../../_services/authentication.service';
 
 const EmployeeDetail = ({ match }) => {
     const id = match.params.id;
@@ -19,7 +20,14 @@ const EmployeeDetail = ({ match }) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const result = await fetch(`https://localhost:44349/api/employees/${id}`);
+            const currentUser = authenticationService.currentUserValue;
+            const result = await fetch(`https://localhost:44349/api/employees/${id}`, {
+                method: 'get',
+                headers: new Headers({
+                    "Accept": "application/json",
+                    "Authorization": "Bearer " + currentUser.token
+                })
+            });
             const body = await result.json();
             setEmployeeInfo(body);
         };
@@ -33,10 +41,10 @@ const EmployeeDetail = ({ match }) => {
     return (
         <React.Fragment>
             <div className="detailPageContainer">
-                <h4 className="text-info">{employeeInfo.employeeId}. {employeeInfo.firstName} {employeeInfo.lastName}</h4>
+                <h4 className="text-info">{employeeInfo.id}. {employeeInfo.firstName} {employeeInfo.lastName}</h4>
                 <div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                     <div className="btn-group" role="group" aria-label="First group">
-                        <Link key={employeeInfo.employeeId} to={`/editEmployee/${employeeInfo.employeeId}`}>
+                        <Link key={employeeInfo.id} to={`/editEmployee/${employeeInfo.id}`}>
                             <button
                                 style={{ position: "block" }}
                                 className="btn btn-primary"
@@ -45,8 +53,7 @@ const EmployeeDetail = ({ match }) => {
                             >Edit Employee</button>
                         </Link>
                     </div>
-                </div>)
-                }
+                </div>
                 <table style={{ "width": "90%", "margin": "auto" }}>
                     <tbody>
                         <tr>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './AddCustomerForm.css'
+import { authenticationService } from '../../_services/authentication.service';
 
 const AddCustomerForm = ({ setCustomerInfo }) => {
     const [companyName, setCompanyName] = useState('');
@@ -9,6 +10,8 @@ const AddCustomerForm = ({ setCustomerInfo }) => {
     const [address, setAddress] = useState('');
 
     const addCustomer = async () => {
+        const currentUser = authenticationService.currentUserValue;
+
         const result = await fetch(`https://localhost:44349/api/HVACCustomers`, {
             method: 'post',
             body: JSON.stringify({
@@ -20,7 +23,8 @@ const AddCustomerForm = ({ setCustomerInfo }) => {
             }),
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + currentUser.token
             }
         });
         const body = await result.json();
@@ -29,7 +33,7 @@ const AddCustomerForm = ({ setCustomerInfo }) => {
 
     return (<React.Fragment>
         <div className="panel panel-default">
-             <form>
+            <form>
                 <div className="form-group">
                     <label htmlFor="companyName">CompanyName:</label>
                     <input className="form-control" type="text" placeholder="Company Name"

@@ -2,14 +2,23 @@ import React, { useCallback } from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
-import './ListStyle.css'
+import './ListStyle.css';
+import { authenticationService } from '../_services/authentication.service';
 
 const CustomerList = (exceptId) => {
     const [customerInfo, setCustomerInfo] = useState({});
 
     useEffect(() => {
+        const url = 'https://localhost:44349/api/HVACCustomers';
         const fetchData = async () => {
-            const result = await fetch(`https://localhost:44349/api/HVACCustomers`);
+            const currentUser = authenticationService.currentUserValue;
+            const result = await fetch(url, {
+                method: 'get',
+                headers: new Headers({
+                    "Accept": "application/json",
+                    "Authorization": "Bearer " + currentUser.token
+                })
+            });
             const body = await result.json();
             setCustomerInfo(body);
         }

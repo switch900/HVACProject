@@ -29,7 +29,7 @@ export class Footer extends Component {
         return (
 
             <div className="footerContainer">
-                <footer className="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center position-sticky">
+                <footer className="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center fixed-bottom">
                     <div className="footerStyle">
                         <h3>Andrew Hewitson</h3>
                         <div className="grid-container">

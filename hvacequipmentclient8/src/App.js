@@ -73,38 +73,33 @@ class App extends React.Component {
           }
           <div className="jumbotron">
             <div className="container">
-              <div className="row">
-                <div className="col-md-6 offset-md-3">
-                  <PrivateRoute exact path="/" component={HomePage} />
-                  <Route path="/login" component={LoginPage} />
-                  <Route path="/addCustomer" component={AddCustomer} exact />
-                  <Route path="/about" component={AboutPage} exact />
-                  <Route path="/contact" component={ContactPage} exact />
-                </div>
-              </div>
+
+              <Switch>
+                <Route path="/login" component={LoginPage} />
+                <Route path="/about" component={AboutPage} exact />
+                <Route path="/contact" component={ContactPage} exact />
+                <Route path="/addEmployee" component={AddEmployee} exact />
+                <PrivateRoute exact path="/" component={HomePage} />
+                <PrivateRoute path="/displayAllEquipment" component={EquipmentListPage} exact />
+                <PrivateRoute path="/addEquipment" component={AddEquipment} exact />
+                <PrivateRoute path="/displayAllLocations" component={DisplayAllLocation} exact />
+                <PrivateRoute path="/addLocation" component={AddLocation} exact />
+                <PrivateRoute path="/displayAllEmployees" component={DisplayAllEmployees} exact />
+                <PrivateRoute path="/displayAllCustomers" component={DisplayAllCustomers} exact />
+                <PrivateRoute path="/locationDetail/:id" component={LocationDetail} exact />
+                <PrivateRoute path="/employeeDetail/:id" component={EmployeeDetail} exact />
+                <PrivateRoute path="/equipmentDetail/:id" component={EquipmentDetail} exact />
+                <PrivateRoute path="/addCustomer" component={AddCustomer} exact />
+                <PrivateRoute path="/customerDetail/:id" component={CustomerDetail} exact />
+                <PrivateRoute path="/editEquipment/:id" component={EditEquipment} exact />
+                <PrivateRoute path="/editCustomer/:id" component={EditCustomer} exact />
+                <PrivateRoute path="/editLocation/:id" component={EditLocation} exact />
+                <PrivateRoute path="/editEmployee/:id" component={EditEmployee} exact />
+                <Route component={NotFoundPage} />
+              </Switch>
             </div>
           </div>
           <NavBar />
-          <Switch>
-            <PrivateRoute path="/displayAllEquipment" component={EquipmentListPage} exact />
-            <PrivateRoute path="/addEquipment" component={AddEquipment} exact />
-            <PrivateRoute path="/displayAllLocations" component={DisplayAllLocation} exact />
-            <PrivateRoute path="/addLocation" component={AddLocation} exact />
-            <PrivateRoute path="/displayAllEmployees" component={DisplayAllEmployees} exact />
-            <PrivateRoute path="/addEmployee" component={AddEmployee} exact />
-            <PrivateRoute path="/displayAllCustomers" component={DisplayAllCustomers} exact />
-
-            <PrivateRoute path="/locationDetail/:id" component={LocationDetail} exact />
-            <PrivateRoute path="/employeeDetail/:id" component={EmployeeDetail} exact />
-            <PrivateRoute path="/equipmentDetail/:id" component={EquipmentDetail} exact />
-            <PrivateRoute path="/customerDetail/:id" component={CustomerDetail} exact />
-            <PrivateRoute path="/editEquipment/:id" component={EditEquipment} exact />
-            <PrivateRoute path="/editCustomer/:id" component={EditCustomer} exact />
-            <PrivateRoute path="/editLocation/:id" component={EditLocation} exact />
-            <PrivateRoute path="/editEmployee/:id" component={EditEmployee} exact />
-
-            <Route component={NotFoundPage} />
-          </Switch>
           <Footer />
         </div>
       </Router>

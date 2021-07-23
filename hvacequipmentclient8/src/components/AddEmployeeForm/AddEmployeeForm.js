@@ -1,5 +1,6 @@
 import React from 'react';
-import './AddEmployeeForm.css'
+import './AddEmployeeForm.css';
+import { authenticationService } from '../../_services/authentication.service';
 
 export class AddEmployeeForm extends React.Component {
     constructor(props) {
@@ -110,13 +111,14 @@ export class AddEmployeeForm extends React.Component {
     }
 
     addEmployee() {
-        alert(this.state.userName);
+        const currentUser = authenticationService.currentUserValue;
 
         fetch('https://localhost:44349/auth/register', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
+                "Authorization": "Bearer " + currentUser.token
             },
             body: JSON.stringify({
                 UserName: this.state.userName,

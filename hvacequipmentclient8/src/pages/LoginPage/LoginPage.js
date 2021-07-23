@@ -1,6 +1,7 @@
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import './LoginPage.css';
 
 import { authenticationService } from '../../_services/authentication.service';
 
@@ -16,7 +17,7 @@ class LoginPage extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="loginContainer">
                 <h2>Login</h2>
                 <Formik
                     initialValues={{
