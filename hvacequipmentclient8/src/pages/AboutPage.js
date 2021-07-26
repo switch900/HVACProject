@@ -17,6 +17,13 @@ const AboutPage = () => (
                 they can see and update.</p>
             <p>The project will be built using ASP.NET Core Web API and
                 a front end built with React.</p>
+            <h3>People that I learned a lot from for this project</h3>
+            <ul>
+                <li><a href="https://github.com/MikeWasson">Mike Wasson - https://github.com/MikeWasson</a></li>
+                <li>Jason Watmore - https://jasonwatmore.com/</li>
+                <li>Medhat Elmasry - https://blog.medhat.ca/</li>
+
+            </ul>
         </div>
     </React.Fragment>
 );

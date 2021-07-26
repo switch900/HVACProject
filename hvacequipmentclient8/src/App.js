@@ -43,17 +43,18 @@ import Footer from './Footer';
 class App extends React.Component {
   constructor(props) {
     super(props);
-
+    this.logout = this.logout.bind(this);
     this.state = {
-      currentUser: null
+      currentUser: []
     };
   }
 
   componentDidMount() {
     authenticationService.currentUser.subscribe(x => this.setState({ currentUser: x }));
+
   }
 
-  logout() {
+  logout = () => {
     authenticationService.logout();
     history.push('/login');
   }
@@ -63,7 +64,7 @@ class App extends React.Component {
       <Router history={history}>
         <div>
           {currentUser &&
-            <NavBar />
+            <NavBar {...currentUser} logout={this.logout} />
             // <nav className="navbar navbar-expand navbar-dark bg-dark">
             //   <div className="navbar-nav">
             //     <Link to="/" className="nav-item nav-link">Home</Link>
@@ -99,7 +100,15 @@ class App extends React.Component {
               </Switch>
             </div>
           </div>
-          <NavBar />
+          {!currentUser &&
+            <NavBar />
+            // <nav className="navbar navbar-expand navbar-dark bg-dark">
+            //   <div className="navbar-nav">
+            //     <Link to="/" className="nav-item nav-link">Home</Link>
+            //     <a onClick={this.logout} className="nav-item nav-link">Logout</a>
+            //   </div>
+            // </nav>
+          }
           <Footer />
         </div>
       </Router>

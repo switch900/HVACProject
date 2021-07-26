@@ -27,7 +27,6 @@ export class Footer extends Component {
 
     render() {
         return (
-
             <div className="footerContainer">
                 <footer className="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center fixed-bottom">
                     <div className="footerStyle">

@@ -19,13 +19,18 @@ function login(username, password) {
     };
 
     return fetch('https://localhost:44349/auth/login', requestOptions)
-        .then(handleResponse)
+        // .then(handleResponse)
         .then(user => {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            currentUserSubject.next(user);
-
-            return user;
+            if (user.token) {
+                alert("Welcome to the Naughty or Nice list ");
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                currentUserSubject.next(user);
+                return user;
+            }
+            else {
+                alert("Not a valid user")
+            }
         });
 }
 

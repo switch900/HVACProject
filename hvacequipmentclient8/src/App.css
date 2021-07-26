@@ -46,6 +46,10 @@
   margin-bottom: 100px;
 }
 
+.footerContainer{
+  height: 25px;
+}
+
 .footerStyle {
   text-align: center;
 }
@@ -74,8 +78,8 @@
 
 .jumbotron{
   margin-top:0px;
-  margin-bottom:0px;
-  height: 100vh;
+  margin-bottom:50px;
+  /* height: 100vh; */
   padding: 0px;
 }
 
@@ -95,4 +99,8 @@
 
 h1{
   text-align: center;
+}
+
+.body {
+  margin-bottom: 100px;
 }

@@ -96,6 +96,7 @@ namespace HVACProject3.Controllers
                       {
                           token = new JwtSecurityTokenHandler().WriteToken(token),
                           expiration = token.ValidTo,
+                          userName = token.Claims.ElementAt(0).Value,
                           credential = token.Claims.ElementAt(1).Value,
                           id = token.Claims.ElementAt(2).Value
                       });
