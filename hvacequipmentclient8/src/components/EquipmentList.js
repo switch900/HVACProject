@@ -23,7 +23,7 @@ const EquipmentList = (exceptId) => {
     }
 
     const handleRemoveItem = async (equipmentId) => {
-        const url = 'https://localhost:44349/api/HVACEquipments/' + equipmentId;
+        const url = 'https://andrewhewitson.com/api/HVACEquipments/' + equipmentId;
         fetch(url, {
             method: 'DELETE',
             headers: {

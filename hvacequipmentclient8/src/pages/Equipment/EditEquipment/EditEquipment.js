@@ -61,7 +61,7 @@ const EditEquipment = ({ match }) => {
     };
 
     const addEquipment = async () => {
-        const result = await fetch(`https://localhost:44349/api/HVACEquipments/` + id, {
+        const result = await fetch(`https://andrewhewitson.com/api/HVACEquipments/` + id, {
             method: 'put',
             body: JSON.stringify({
                 equipmentId: equipment.equipmentId,

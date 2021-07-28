@@ -113,7 +113,7 @@ export class AddEmployeeForm extends React.Component {
     addEmployee() {
         const currentUser = authenticationService.currentUserValue;
 
-        fetch('https://localhost:44349/auth/register', {
+        fetch('https://andrewhewitson.com/auth/register', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

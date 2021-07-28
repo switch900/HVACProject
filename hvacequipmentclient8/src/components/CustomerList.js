@@ -9,7 +9,7 @@ const CustomerList = (exceptId) => {
     const [customerInfo, setCustomerInfo] = useState({});
 
     useEffect(() => {
-        const url = 'https://localhost:44349/api/HVACCustomers';
+        const url = 'https://andrewhewitson.com/api/HVACCustomers';
         const fetchData = async () => {
             const currentUser = authenticationService.currentUserValue;
             const result = await fetch(url, {

@@ -10,7 +10,7 @@ const AddLocationForm = ({ setLocationInfo }) => {
     const [postalCode, setPostalCode] = useState('');
 
     const addLocation = async () => {
-        const result = await fetch(`https://localhost:44349/api/HVACEquipmentLocations`, {
+        const result = await fetch(`https://andrewhewitson.com/api/HVACEquipmentLocations`, {
             method: 'post',
             body: JSON.stringify({
                 locationName: locationName,

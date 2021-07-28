@@ -19,7 +19,7 @@ const EditEmployee = ({ match }) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const result = await fetch(`https://localhost:44349/api/employees/${id}`);
+            const result = await fetch(`https://andrewhewitson.com/api/employees/${id}`);
             const body = await result.json();
             setEmployee(body);
         };
@@ -32,7 +32,7 @@ const EditEmployee = ({ match }) => {
     }
 
     const updateEmployee = async () => {
-        const url = `https://localhost:44349/api/employees/` + id;
+        const url = `https://andrewhewitson.com/api/employees/` + id;
         const result = await fetch(url, {
             method: 'put',
             body: JSON.stringify({

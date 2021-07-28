@@ -11,7 +11,7 @@ const EmployeeList = (match) => {
     const [employeeInfo, setEmployeeInfo] = useState({});
 
     useEffect(() => {
-        const url = 'https://localhost:44349/api/employees';
+        const url = 'https://andrewhewitson.com/api/employees';
 
         const fetchData = async () => {
             const currentUser = authenticationService.currentUserValue;

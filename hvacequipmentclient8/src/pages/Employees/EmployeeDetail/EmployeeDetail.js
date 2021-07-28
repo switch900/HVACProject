@@ -21,7 +21,7 @@ const EmployeeDetail = ({ match }) => {
     useEffect(() => {
         const fetchData = async () => {
             const currentUser = authenticationService.currentUserValue;
-            const result = await fetch(`https://localhost:44349/api/employees/${id}`, {
+            const result = await fetch(`https://andrewhewitson.com/api/employees/${id}`, {
                 method: 'get',
                 headers: new Headers({
                     "Accept": "application/json",

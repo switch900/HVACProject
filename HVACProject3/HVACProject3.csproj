@@ -2,8 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
+    <UserSecretsId>030d9df7-3b43-41a9-ab9e-a1c7c2814b46</UserSecretsId>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="WeatherForecast.cs" />
   </ItemGroup>

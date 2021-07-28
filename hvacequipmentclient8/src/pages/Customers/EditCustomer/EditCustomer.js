@@ -19,7 +19,7 @@ const EditCustomer = ({ match }) => {
 
     useEffect(() => {
         const addCustomer = async () => {
-            const result = await fetch(`https://localhost:44349/api/HVACCustomers/${id}`);
+            const result = await fetch(`https://andrewhewitson.com/api/HVACCustomers/${id}`);
             const body = await result.json();
             setCustomer(body);
 
@@ -34,7 +34,7 @@ const EditCustomer = ({ match }) => {
     }
 
     const updateCustomer = async () => {
-        const result = await fetch(`https://localhost:44349/api/HVACCustomers/${id}`, {
+        const result = await fetch(`https://andrewhewitson.com/api/HVACCustomers/${id}`, {
             method: 'put',
             body: JSON.stringify({
                 customerId: customer.customerId,

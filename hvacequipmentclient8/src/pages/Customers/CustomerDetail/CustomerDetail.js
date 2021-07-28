@@ -25,7 +25,7 @@ const CustomerDetail = ({ match }) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const result = await fetch(`https://localhost:44349/api/HVACCustomers/${id}`);
+            const result = await fetch(`https://andrewhewitson.com/api/HVACCustomers/${id}`);
             const body = await result.json();
             setCustomerInfo(body);
             setIsEditable(false);
@@ -51,7 +51,7 @@ const CustomerDetail = ({ match }) => {
 
     const handleSaveItem = (id) => {
         setIsEditable(false);
-        const url = 'https://localhost:44349/api/HVACEquipments/' + id;
+        const url = 'https://andrewhewitson.com/api/HVACEquipments/' + id;
         console.log(url);
         fetch(url, {
             method: 'PUT',

@@ -18,20 +18,16 @@ function login(username, password) {
         body: JSON.stringify({ username, password })
     };
 
-    return fetch('https://localhost:44349/auth/login', requestOptions)
-        // .then(handleResponse)
+    return fetch('https://andrewhewitson.com/auth/login', requestOptions)
+        .then(handleResponse)
         .then(user => {
-            if (user.token) {
-                alert("Welcome to the Naughty or Nice list ");
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                currentUserSubject.next(user);
-                return user;
-            }
-            else {
-                alert("Not a valid user")
-            }
-        });
+            alert("Welcome to the Naughty or Nice list ");
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            currentUserSubject.next(user);
+            return user;
+        })
+
 }
 
 function logout() {
