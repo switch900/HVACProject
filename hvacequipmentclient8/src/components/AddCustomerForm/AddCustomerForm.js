@@ -12,7 +12,7 @@ const AddCustomerForm = ({ setCustomerInfo }) => {
     const addCustomer = async () => {
         const currentUser = authenticationService.currentUserValue;
 
-        const result = await fetch(`https://localhost:44349/api/HVACCustomers`, {
+        const result = await fetch(`https://andrewhewitson.com/api/HVACCustomers`, {
             method: 'post',
             body: JSON.stringify({
                 companyName: companyName,

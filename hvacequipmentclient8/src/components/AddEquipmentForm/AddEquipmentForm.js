@@ -20,7 +20,7 @@ const AddEquipmentForm = ({ setEquipmentInfo }) => {
 
     useEffect(() => {
         const addLocations = async () => {
-            const result = await fetch(`https://localhost:44349/api/HVACEquipmentLocations`);
+            const result = await fetch(`https://andrewhewitson.com/api/HVACEquipmentLocations`);
             const body = await result.json();
             setLocations(body);
 
@@ -34,7 +34,7 @@ const AddEquipmentForm = ({ setEquipmentInfo }) => {
     };
 
     const addEquipment = async () => {
-        const result = await fetch(`https://localhost:44349/api/HVACEquipments`, {
+        const result = await fetch(`https://andrewhewitson.com/api/HVACEquipments`, {
             method: 'post',
             body: JSON.stringify({
                 name: name,
